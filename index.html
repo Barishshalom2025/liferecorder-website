@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Life Recorder — Save the moment after it happens</title>
+<meta name="description" content="Life Recorder quietly remembers the last hour of audio on your Android phone. Save a moment AFTER it happened, transcribe it on-device in ~100 languages, trim and share. Private by design — audio never leaves your phone.">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<link rel="canonical" href="https://liferecorderapp.com/">
+<meta property="og:title" content="Life Recorder — Save the moment after it happens">
+<meta property="og:description" content="The Android recorder that lets you save audio AFTER the moment passed. On-device transcription, trim, share — everything stays on your phone.">
+<meta property="og:image" content="https://liferecorderapp.com/assets/og-banner.png">
+<meta property="og:url" content="https://liferecorderapp.com/">
+<meta property="og:type" content="website">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"MobileApplication","name":"Life Recorder",
+"operatingSystem":"ANDROID","applicationCategory":"UtilitiesApplication",
+"description":"Background voice recorder that keeps a rolling buffer of the last hour so you can save a moment after it happened. On-device transcription in ~100 languages.",
+"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+"installUrl":"https://play.google.com/store/apps/details?id=com.record.liferecorder"}
+</script>
+<style>
+:root{
+  --bg:#1a2233; --bg2:#121826; --card:#212d40;
+  --start:#5e5ce6; --end:#64d2ff; --text:#f2f5fa; --dim:#aab6c8;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  line-height:1.6;overflow-x:hidden}
+a{color:var(--end);text-decoration:none}
+.wrap{max-width:1060px;margin:0 auto;padding:0 24px}
+.grad{background:linear-gradient(90deg,var(--start),var(--end));
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+header{padding:22px 0}
+header .wrap{display:flex;align-items:center;gap:12px}
+header img{width:36px;height:36px;border-radius:9px}
+header .brand{font-weight:700;font-size:19px}
+header nav{margin-left:auto;display:flex;gap:22px;font-size:15px}
+header nav a{color:var(--dim)}
+header nav a:hover{color:var(--text)}
+.hero{position:relative;padding:56px 0 40px;text-align:left}
+.hero .wrap{display:flex;align-items:center;gap:48px;flex-wrap:wrap}
+.hero-copy{flex:1 1 420px;position:relative;z-index:1}
+.hero h1{font-size:clamp(34px,5vw,54px);line-height:1.12;font-weight:800;letter-spacing:-.5px}
+.hero p.sub{margin:18px 0 30px;font-size:19px;color:var(--dim);max-width:34em}
+.hero-shot{flex:0 1 320px;margin:0 auto}
+.hero-shot img{width:100%;max-width:320px;border-radius:22px;
+  box-shadow:0 26px 70px rgba(0,0,0,.55)}
+.badge img{height:64px}
+.wave{position:absolute;left:0;right:0;top:44%;z-index:0;opacity:.5;pointer-events:none}
+.tag{display:inline-block;font-size:13px;letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--end);margin-bottom:14px;font-weight:600}
+section{padding:64px 0;position:relative;z-index:1}
+h2{font-size:clamp(26px,3.4vw,36px);font-weight:800;margin-bottom:14px}
+.lead{color:var(--dim);font-size:17px;max-width:44em;margin-bottom:38px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px}
+.step{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.14);
+  border-radius:16px;padding:26px}
+.step .n{font-size:15px;font-weight:700;color:var(--end);margin-bottom:8px}
+.step h3{font-size:19px;margin-bottom:8px}
+.step p{color:var(--dim);font-size:15px}
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
+.feature{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.14);
+  border-radius:16px;padding:26px}
+.feature h3{font-size:18px;margin-bottom:8px}
+.feature .emoji{font-size:26px;display:block;margin-bottom:12px}
+.feature p{color:var(--dim);font-size:15px}
+.shots{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:26px;
+  max-width:860px;margin:0 auto}
+.shots img{width:100%;border-radius:18px;box-shadow:0 18px 50px rgba(0,0,0,.45)}
+.privacy-band{background:rgba(94,92,230,.10);border:1.5px solid rgba(100,210,255,.25);
+  border-radius:22px;padding:44px;text-align:center}
+.privacy-band p{max-width:46em;margin:0 auto;color:var(--dim);font-size:17px}
+.faq details{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.14);
+  border-radius:14px;padding:18px 22px;margin-bottom:12px}
+.faq summary{cursor:pointer;font-weight:600;font-size:16px}
+.faq details p{margin-top:10px;color:var(--dim);font-size:15px}
+.cta{text-align:center;padding:80px 0}
+footer{border-top:1px solid rgba(255,255,255,.1);padding:34px 0;color:var(--dim);font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:18px;align-items:center}
+footer .links{margin-left:auto;display:flex;gap:20px}
+@media (max-width:720px){.hero .wrap{gap:28px}.privacy-band{padding:30px 20px}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <img src="assets/icon-192.png" alt="Life Recorder icon">
+    <span class="brand">Life&nbsp;Recorder</span>
+    <nav>
+      <a href="#how">How it works</a>
+      <a href="#features">Features</a>
+      <a href="#faq">FAQ</a>
+      <a href="privacy.html">Privacy</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <svg class="wave" viewBox="0 0 1440 220" preserveAspectRatio="none" height="220" aria-hidden="true">
+    <defs><linearGradient id="g" x1="0" x2="1">
+      <stop offset="0" stop-color="#5e5ce6"/><stop offset="1" stop-color="#64d2ff"/>
+    </linearGradient></defs>
+    <path d="M0,110 C180,30 360,190 540,110 C720,30 900,190 1080,110 C1260,30 1380,160 1440,110"
+      fill="none" stroke="url(#g)" stroke-width="3" opacity=".9"/>
+    <path d="M0,110 C240,190 480,30 720,110 C960,190 1200,30 1440,110"
+      fill="none" stroke="url(#g)" stroke-width="2" opacity=".45"/>
+  </svg>
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="tag">Android · Free</span>
+      <h1>Save the moment —<br><span class="grad">after it happens</span></h1>
+      <p class="sub">Life Recorder quietly remembers the last hour of audio around you.
+      A funny thing your kid said, a sudden idea, a detail from a call —
+      tap once and it's saved, even though the moment already passed.</p>
+      <a class="badge" href="https://play.google.com/store/apps/details?id=com.record.liferecorder">
+        <img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png">
+      </a>
+    </div>
+    <div class="hero-shot">
+      <img src="assets/shot-recording.png" alt="Life Recorder recording screen with live sound wave">
+    </div>
+  </div>
+</div>
+
+<section id="how">
+  <div class="wrap">
+    <h2>How it <span class="grad">works</span></h2>
+    <p class="lead">No planning, no pressing record at the right time. It already was.</p>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h3>Start once</h3>
+        <p>Tap START and Life Recorder listens in the background, keeping a rolling
+        buffer of the recent past. Old audio is continuously discarded — nothing piles up.</p></div>
+      <div class="step"><div class="n">2</div><h3>Life happens</h3>
+        <p>Something worth keeping? Save the last 5, 10 or any custom number of minutes —
+        from the app, the notification, or the home-screen widget.</p></div>
+      <div class="step"><div class="n">3</div><h3>Keep just the moment</h3>
+        <p>Play it with a waveform, trim to the exact seconds, share anywhere —
+        or turn it into text with one tap.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="wrap">
+    <h2>Features</h2>
+    <p class="lead">Small app, sharp purpose — with a couple of superpowers.</p>
+    <div class="features">
+      <div class="feature"><span class="emoji">⏪</span><h3>Retroactive saving</h3>
+        <p>The whole point: save audio AFTER it happened. Up to a full hour back,
+        cut to the minute.</p></div>
+      <div class="feature"><span class="emoji">📝</span><h3>On-device transcription</h3>
+        <p>Turn any recording into text in ~100 languages. The speech model runs
+        entirely on your phone — audio never leaves it.</p></div>
+      <div class="feature"><span class="emoji">✂️</span><h3>Trim with live waveform</h3>
+        <p>See the sound, drag the handles, keep exactly the seconds that matter.</p></div>
+      <div class="feature"><span class="emoji">🔋</span><h3>Battery friendly</h3>
+        <p>A recording schedule and skip-silence mode keep the buffer deep and
+        the battery drain shallow.</p></div>
+      <div class="feature"><span class="emoji">🌍</span><h3>Speaks your language</h3>
+        <p>The app is available in 30 languages, with full right-to-left support.</p></div>
+      <div class="feature"><span class="emoji">🔒</span><h3>Private by design</h3>
+        <p>Recordings are never uploaded. Only what you explicitly save is kept —
+        the rest is discarded as it ages out.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="shots">
+      <img src="assets/shot-recording.png" alt="Recording screen — save the last minutes with one tap" loading="lazy">
+      <img src="assets/shot-playing.png" alt="Recordings list with waveform player" loading="lazy">
+      <img src="assets/shot-trim.png" alt="Trimming a recording with live waveform preview" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="privacy-band">
+      <h2>Your privacy comes <span class="grad">first</span></h2>
+      <p>Everything stays on your device. Recordings are never uploaded, transcription
+      runs locally, and only audio you explicitly save is kept. No account, no cloud —
+      unless <em>you</em> choose to share something, it never leaves your phone.</p>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <h2>FAQ</h2>
+    <div class="faq">
+      <details><summary>How can it record something that already happened?</summary>
+        <p>While listening, Life Recorder keeps a rolling buffer of the last hour of audio.
+        When you tap save, the last minutes of that buffer become a recording. Anything
+        older than an hour is continuously and permanently discarded.</p></details>
+      <details><summary>Is my audio uploaded anywhere?</summary>
+        <p>No. The buffer and your saved recordings live only on your phone. Transcription
+        also runs entirely on-device. Audio only leaves your phone if you explicitly share it.</p></details>
+      <details><summary>Does it drain the battery?</summary>
+        <p>It's built to sip power. You can also set a recording schedule (only listen during
+        chosen hours) and enable skip-silence so quiet stretches aren't stored at all.</p></details>
+      <details><summary>Which languages can it transcribe?</summary>
+        <p>About 100 spoken languages, automatically detected. The one-time speech model
+        download (~380&nbsp;MB) happens over Wi-Fi; after that transcription works offline.
+        Automatic transcripts may contain mistakes.</p></details>
+      <details><summary>Is it legal to record?</summary>
+        <p>Laws differ by country. In some places you must have the consent of everyone being
+        recorded — please make sure you comply with your local laws.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <h2>Stop missing moments</h2>
+    <p class="lead" style="margin:14px auto 26px;max-width:34em;text-align:center">
+      Free to use. PRO unlocks unlimited listening, sharing, trimming and transcription.</p>
+    <a class="badge" href="https://play.google.com/store/apps/details?id=com.record.liferecorder">
+      <img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png">
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Life Recorder</span>
+    <div class="links">
+      <a href="mailto:liferecorderapp@gmail.com">Support</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Use</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
