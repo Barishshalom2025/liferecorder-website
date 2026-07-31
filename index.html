@@ -39,7 +39,7 @@ a{color:var(--end);text-decoration:none}
 .wrap{max-width:1060px;margin:0 auto;padding:0 24px}
 .grad{background:linear-gradient(90deg,var(--start),var(--end));
   -webkit-background-clip:text;background-clip:text;color:transparent}
-header{padding:22px 0}
+header{padding:16px 0;position:sticky;top:0;z-index:20;background:rgba(26,34,51,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.07)}
 header .wrap{display:flex;align-items:center;gap:12px}
 header img{width:36px;height:36px;border-radius:9px}
 header .brand{font-weight:700;font-size:19px}
@@ -58,7 +58,7 @@ header nav a:hover{color:var(--text)}
 .wave{position:absolute;left:0;right:0;top:44%;z-index:0;opacity:.5;pointer-events:none}
 .tag{display:inline-block;font-size:13px;letter-spacing:1.4px;text-transform:uppercase;
   color:var(--end);margin-bottom:14px;font-weight:600}
-section{padding:64px 0;position:relative;z-index:1}
+section{padding:64px 0;position:relative;z-index:1;scroll-margin-top:96px}
 h2{font-size:clamp(26px,3.4vw,36px);font-weight:800;margin-bottom:14px}
 .lead{color:var(--dim);font-size:17px;max-width:44em;margin-bottom:38px}
 .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px}
