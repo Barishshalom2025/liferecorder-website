@@ -8,9 +8,15 @@
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
 <link rel="apple-touch-icon" href="assets/icon-192.png">
 <link rel="canonical" href="https://liferecorderapp.com/">
+<link rel="preload" as="image" href="assets/life-recorder-android-record-save-last-minutes.webp" fetchpriority="high">
+<meta name="theme-color" content="#1a2233">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Life Recorder — Save the moment after it happens">
+<meta name="twitter:description" content="The Android voice recorder that saves audio AFTER the moment passed. On-device transcription in ~100 languages. Private by design.">
+<meta name="twitter:image" content="https://liferecorderapp.com/assets/life-recorder-save-the-moment-after-it-happens.png">
 <meta property="og:title" content="Life Recorder — Save the moment after it happens">
 <meta property="og:description" content="The Android recorder that lets you save audio AFTER the moment passed. On-device transcription, trim, share — everything stays on your phone.">
-<meta property="og:image" content="https://liferecorderapp.com/assets/og-banner.png">
+<meta property="og:image" content="https://liferecorderapp.com/assets/life-recorder-save-the-moment-after-it-happens.png">
 <meta property="og:url" content="https://liferecorderapp.com/">
 <meta property="og:type" content="website">
 <script type="application/ld+json">
@@ -81,8 +87,22 @@ h2{font-size:clamp(26px,3.4vw,36px);font-weight:800;margin-bottom:14px}
 footer{border-top:1px solid rgba(255,255,255,.1);padding:34px 0;color:var(--dim);font-size:14px}
 footer .wrap{display:flex;flex-wrap:wrap;gap:18px;align-items:center}
 footer .links{margin-left:auto;display:flex;gap:20px}
-@media (max-width:720px){.hero .wrap{gap:28px}.privacy-band{padding:30px 20px}}
+@media (max-width:720px){
+  .hero .wrap{gap:28px}
+  .privacy-band{padding:30px 20px}
+  header .wrap{flex-wrap:wrap;justify-content:center;row-gap:10px}
+  header nav{margin-left:0;width:100%;justify-content:center;gap:14px;font-size:14px;flex-wrap:wrap}
+  .hero{padding-top:34px}
+}
 </style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How can it record something that already happened?","acceptedAnswer":{"@type":"Answer","text":"While listening, Life Recorder keeps a rolling buffer of the last hour of audio on the device. When you tap save, the last minutes of that buffer become a recording. Anything older than an hour is continuously discarded."}},
+{"@type":"Question","name":"Is my audio uploaded anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. The buffer and saved recordings live only on your phone, and transcription runs entirely on-device. Audio only leaves your phone if you explicitly share it."}},
+{"@type":"Question","name":"Does it drain the battery?","acceptedAnswer":{"@type":"Answer","text":"It is built to sip power. A recording schedule limits listening to chosen hours, and skip-silence avoids storing quiet stretches."}},
+{"@type":"Question","name":"Which languages can it transcribe?","acceptedAnswer":{"@type":"Answer","text":"About 100 spoken languages, automatically detected, using a one-time on-device model download. After that transcription works offline."}},
+{"@type":"Question","name":"Is it legal to record?","acceptedAnswer":{"@type":"Answer","text":"Laws differ by country. In some places you must have the consent of everyone being recorded - always comply with your local laws."}}]}
+</script>
 </head>
 <body>
 
@@ -121,7 +141,7 @@ footer .links{margin-left:auto;display:flex;gap:20px}
       </a>
     </div>
     <div class="hero-shot">
-      <img src="assets/shot-recording.png" alt="Life Recorder recording screen with live sound wave">
+      <img src="assets/life-recorder-android-record-save-last-minutes.webp" alt="Life Recorder Android app recording screen — save the last minutes of audio after they happened" width="640" height="1138" fetchpriority="high">
     </div>
   </div>
 </div>
@@ -172,9 +192,9 @@ footer .links{margin-left:auto;display:flex;gap:20px}
 <section>
   <div class="wrap">
     <div class="shots">
-      <img src="assets/shot-recording.png" alt="Recording screen — save the last minutes with one tap" loading="lazy">
-      <img src="assets/shot-playing.png" alt="Recordings list with waveform player" loading="lazy">
-      <img src="assets/shot-trim.png" alt="Trimming a recording with live waveform preview" loading="lazy">
+      <img src="assets/life-recorder-android-record-save-last-minutes.webp" alt="Background voice recorder screen with one-tap save of the last 5 or 10 minutes" width="640" height="1138" loading="lazy">
+      <img src="assets/life-recorder-recordings-waveform-player.webp" alt="Saved voice recordings with waveform player and on-device transcription" width="640" height="1138" loading="lazy">
+      <img src="assets/life-recorder-trim-audio-live-waveform.webp" alt="Trimming an audio recording with live waveform preview on Android" width="640" height="1138" loading="lazy">
     </div>
   </div>
 </section>
