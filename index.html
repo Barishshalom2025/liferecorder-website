@@ -237,7 +237,7 @@ footer .links{margin-left:auto;display:flex;gap:20px}
     <h2>See it in <span class="grad">action</span></h2>
     <p class="lead">26 seconds is all it takes.</p>
     <div class="video-frame">
-      <iframe src="https://www.youtube-nocookie.com/embed/seejFBA3VU8" title="Life Recorder — retroactive voice recorder for Android (promo video)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      <iframe id="promo-video" src="https://www.youtube-nocookie.com/embed/seejFBA3VU8?enablejsapi=1" title="Life Recorder — retroactive voice recorder for Android (promo video)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
     </div>
     <p style="text-align:center;margin-top:18px;color:var(--dim)">More on our
       <a href="https://www.youtube.com/@liferecorderapp" rel="noopener">YouTube channel</a></p>
@@ -354,5 +354,56 @@ footer .links{margin-left:auto;display:flex;gap:20px}
   <a class="btn-install" href="https://play.google.com/store/apps/details?id=com.record.liferecorder&amp;referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dsticky" onclick="installClick(event,'sticky')">Install free</a>
 </div>
 
+<script>
+/* Measurement layer - custom because Enhanced Measurement toggles live in
+   the GA4 console, not in code, and this page must not depend on them.
+   Everything fires at most once per page load. */
+(function(){
+  // Scroll depth: 25/50/75/90 percent.
+  var marks=[25,50,75,90],sent={};
+  function onScroll(){
+    var h=document.documentElement,max=h.scrollHeight-window.innerHeight;
+    if(max<=0)return;
+    var pct=Math.round(window.scrollY/max*100);
+    marks.forEach(function(m){
+      if(pct>=m&&!sent[m]){sent[m]=1;gtag('event','scroll_depth',{percent:m});}
+    });
+    if(sent[90])window.removeEventListener('scroll',onScroll);
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+
+  // Section visibility: which parts of the page people actually reach.
+  if('IntersectionObserver'in window){
+    var seen={};
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting&&!seen[en.target.id]){
+          seen[en.target.id]=1;
+          gtag('event','section_view',{section:en.target.id});
+          io.unobserve(en.target);
+        }
+      });
+    },{threshold:.4});
+    document.querySelectorAll('section[id]').forEach(function(s){io.observe(s);});
+  }
+
+  // Promo video engagement via the YouTube iframe API (the embed carries
+  // enablejsapi=1). video_start once, video_complete on finish.
+  var yt=document.createElement('script');
+  yt.src="https://www.youtube.com/iframe_api";
+  document.head.appendChild(yt);
+  var started=false;
+  window.onYouTubeIframeAPIReady=function(){
+    new YT.Player('promo-video',{events:{onStateChange:function(e){
+      if(e.data===YT.PlayerState.PLAYING&&!started){
+        started=true;gtag('event','video_start',{video:'promo'});
+      }
+      if(e.data===YT.PlayerState.ENDED){
+        gtag('event','video_complete',{video:'promo'});
+      }
+    }}});
+  };
+})();
+</script>
 </body>
 </html>

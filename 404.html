@@ -5,7 +5,10 @@
 // Links posted as "(liferecorderapp.com/get)" arrive with punctuation stuck
 // to the path and 404. Anything starting with /get is rescued to the real
 // redirect page instead of dead-ending here.
-if(location.pathname.slice(0,4)==="/get"){location.replace("/get/");}</script>
+if(location.pathname.slice(0,4)==="/get"){location.replace("/get/");}
+// Broken inbound links are invisible in page_view reports (all 404s share
+// one title) - record which path failed and who sent the visitor.
+gtag('event','page_not_found',{path:location.pathname,referrer:document.referrer||'(none)'});</script>
 <title>Page not found — Life Recorder</title><meta name="robots" content="noindex">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png">
 <style>body{background:linear-gradient(180deg,#1a2233,#121826);color:#f2f5fa;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;display:grid;place-items:center;min-height:100vh;margin:0;text-align:center}
