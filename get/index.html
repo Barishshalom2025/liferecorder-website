@@ -20,8 +20,14 @@ gtag('js',new Date());gtag('config','G-M2YELX05EM');
   var target="https://play.google.com/store/apps/details?id=com.record.liferecorder&referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dget";
   var went=false;
   function go(){if(went)return;went=true;location.replace(target);}
-  try{gtag('event','install_click',{placement:'get',transport_type:'beacon'});}catch(e){}
-  setTimeout(go,200);
+  // Redirecting at 200ms raced the async gtag.js load and lost every event
+  // (GA4 recorded zero /get clicks while the page had real visits). Wait for
+  // the event to actually send, capped at 800ms.
+  try{
+    gtag('event','install_click',
+      {placement:'get',transport_type:'beacon',event_callback:go,event_timeout:800});
+  }catch(e){}
+  setTimeout(go,800);
 })();
 </script>
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
