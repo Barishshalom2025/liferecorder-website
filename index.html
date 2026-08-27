@@ -10,6 +10,7 @@
 <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
 <link rel="dns-prefetch" href="https://play.google.com">
 <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="dns-prefetch" href="https://i.ytimg.com">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-M2YELX05EM"></script>
 <script>
@@ -117,6 +118,24 @@ h2{font-size:clamp(26px,3.4vw,36px);font-weight:800;margin-bottom:14px}
 .video-frame{position:relative;padding-top:56.25%;border-radius:22px;overflow:hidden;
   box-shadow:0 26px 70px rgba(0,0,0,.5);border:1.5px solid rgba(255,255,255,.14);max-width:960px;margin:0 auto}
 .video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+/* Click-to-play facade: the poster + play button stand in for the YouTube
+   iframe until tapped. Lighter page, and the play tap is OUR click - the
+   video_start event no longer depends on the iframe API wiring up. */
+.video-facade{position:absolute;inset:0;width:100%;height:100%;display:block;
+  border:0;padding:0;cursor:pointer;background:#0d1220}
+.video-facade img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  transition:transform .35s ease,opacity .35s ease;opacity:.92}
+.video-facade:hover img{transform:scale(1.03);opacity:1}
+.video-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:84px;height:84px;border-radius:50%;
+  background:linear-gradient(90deg,var(--start),var(--end));
+  box-shadow:0 12px 40px rgba(94,92,230,.55);display:flex;align-items:center;justify-content:center;
+  transition:transform .25s ease}
+.video-facade:hover .video-play{transform:translate(-50%,-50%) scale(1.08)}
+.video-play svg{width:30px;height:30px;margin-left:5px;fill:#0d1220}
+.video-hint{position:absolute;left:0;right:0;bottom:0;padding:34px 16px 14px;text-align:center;
+  color:#fff;font-size:15px;font-weight:600;
+  background:linear-gradient(180deg,transparent,rgba(13,18,32,.85))}
 .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
 .feature{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.14);
   border-radius:16px;padding:26px}
@@ -237,10 +256,17 @@ footer .links{margin-left:auto;display:flex;gap:20px}
     <h2>See it in <span class="grad">action</span></h2>
     <p class="lead">26 seconds is all it takes.</p>
     <div class="video-frame">
-      <iframe id="promo-video" src="https://www.youtube-nocookie.com/embed/seejFBA3VU8?enablejsapi=1" title="Life Recorder — retroactive voice recorder for Android (promo video)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      <button id="video-facade" class="video-facade" type="button" aria-label="Play the 26-second Life Recorder demo video">
+        <img src="https://i.ytimg.com/vi/seejFBA3VU8/maxresdefault.jpg"
+          onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/seejFBA3VU8/hqdefault.jpg'"
+          alt="Life Recorder demo video — saving a moment after it happened" loading="lazy" width="1280" height="720">
+        <span class="video-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+        <span class="video-hint">Watch the 26-second demo</span>
+      </button>
     </div>
-    <p style="text-align:center;margin-top:18px;color:var(--dim)">More on our
-      <a href="https://www.youtube.com/@liferecorderapp" rel="noopener">YouTube channel</a></p>
+    <div class="cta-row" style="justify-content:center;margin-top:26px">
+      <a class="btn-install" href="https://play.google.com/store/apps/details?id=com.record.liferecorder&amp;referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dvideo" onclick="installClick(event,'video')">Install free on Google Play</a>
+    </div>
   </div>
 </section>
 
@@ -390,22 +416,31 @@ footer .links{margin-left:auto;display:flex;gap:20px}
     document.querySelectorAll('section[id]').forEach(function(s){io.observe(s);});
   }
 
-  // Promo video engagement via the YouTube iframe API (the embed carries
-  // enablejsapi=1). video_start once, video_complete on finish.
-  var yt=document.createElement('script');
-  yt.src="https://www.youtube.com/iframe_api";
-  document.head.appendChild(yt);
-  var started=false;
-  window.onYouTubeIframeAPIReady=function(){
-    new YT.Player('promo-video',{events:{onStateChange:function(e){
-      if(e.data===YT.PlayerState.PLAYING&&!started){
-        started=true;gtag('event','video_start',{video:'promo'});
-      }
-      if(e.data===YT.PlayerState.ENDED){
-        gtag('event','video_complete',{video:'promo'});
-      }
-    }}});
-  };
+  // Promo video: the facade tap IS the start event (the old wiring bound
+  // YT.Player to a lazy iframe that did not exist yet - 0 video_start in
+  // 28 days). The iframe + API load only after the tap; the API is then
+  // only needed for video_complete.
+  var facade=document.getElementById('video-facade');
+  if(facade)facade.addEventListener('click',function(){
+    gtag('event','video_start',{video:'promo'});
+    var ifr=document.createElement('iframe');
+    ifr.id='promo-video';
+    ifr.src='https://www.youtube-nocookie.com/embed/seejFBA3VU8?enablejsapi=1&autoplay=1&rel=0';
+    ifr.title='Life Recorder — retroactive voice recorder for Android (promo video)';
+    ifr.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    ifr.allowFullscreen=true;
+    facade.parentNode.replaceChild(ifr,facade);
+    window.onYouTubeIframeAPIReady=function(){
+      new YT.Player('promo-video',{events:{onStateChange:function(e){
+        if(e.data===YT.PlayerState.ENDED){
+          gtag('event','video_complete',{video:'promo'});
+        }
+      }}});
+    };
+    var yt=document.createElement('script');
+    yt.src="https://www.youtube.com/iframe_api";
+    document.head.appendChild(yt);
+  });
 })();
 </script>
 </body>
