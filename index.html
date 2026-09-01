@@ -109,6 +109,7 @@ header nav a.btn-install:hover{color:#0d1220}
 section{padding:64px 0;position:relative;z-index:1;scroll-margin-top:96px}
 h2{font-size:clamp(26px,3.4vw,36px);font-weight:800;margin-bottom:14px}
 .lead{color:var(--dim);font-size:17px;max-width:44em;margin-bottom:38px}
+.fact{margin:-20px 0 38px;padding:14px 18px;border-left:3px solid var(--end);background:rgba(100,210,255,.06);border-radius:0 12px 12px 0;color:var(--text);font-size:16px;max-width:52em}
 .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px}
 .step{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.14);
   border-radius:16px;padding:26px}
@@ -178,12 +179,7 @@ footer .links{margin-left:auto;display:flex;gap:20px}
 }
 </style>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-{"@type":"Question","name":"How can it record something that already happened?","acceptedAnswer":{"@type":"Answer","text":"While listening, Life Recorder keeps a rolling buffer of the last hour of audio on the device. When you tap save, the last minutes of that buffer become a recording. Anything older than an hour is continuously discarded."}},
-{"@type":"Question","name":"Is my audio uploaded anywhere?","acceptedAnswer":{"@type":"Answer","text":"Never to us - we have no servers that receive audio. The buffer and saved recordings live on your phone, and transcription runs entirely on-device. Audio leaves your phone only if you share it yourself, or if you switch on the optional backup to your own Google Drive."}},
-{"@type":"Question","name":"Does it drain the battery?","acceptedAnswer":{"@type":"Answer","text":"It is built to sip power. A recording schedule limits listening to chosen hours, and skip-silence avoids storing quiet stretches."}},
-{"@type":"Question","name":"Which languages can it transcribe?","acceptedAnswer":{"@type":"Answer","text":"About 100 spoken languages, automatically detected, using a one-time on-device model download. After that transcription works offline."}},
-{"@type":"Question","name":"Is it legal to record?","acceptedAnswer":{"@type":"Answer","text":"Laws differ by country. In some places you must have the consent of everyone being recorded - always comply with your local laws."}}]}
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How can it record something that already happened?", "acceptedAnswer": {"@type": "Answer", "text": "While listening, Life Recorder keeps a rolling buffer of the last hour of audio. When you tap save, the last minutes of that buffer become a recording. Anything older than an hour is continuously and permanently discarded."}}, {"@type": "Question", "name": "Is my audio uploaded anywhere?", "acceptedAnswer": {"@type": "Answer", "text": "Never to us — we have no servers that receive audio. The buffer and your saved recordings live on your phone, and transcription runs entirely on-device. Audio leaves your phone only if you share it yourself, or if you switch on the optional backup to your own Google Drive."}}, {"@type": "Question", "name": "Does it drain the battery?", "acceptedAnswer": {"@type": "Answer", "text": "It's built to sip power. You can also set a recording schedule (only listen during chosen hours) and enable skip-silence so quiet stretches aren't stored at all."}}, {"@type": "Question", "name": "Which languages can it transcribe?", "acceptedAnswer": {"@type": "Answer", "text": "About 100 spoken languages, automatically detected. The one-time speech model download (~380 MB) happens over Wi-Fi; after that transcription works offline. Automatic transcripts may contain mistakes."}}, {"@type": "Question", "name": "Is it legal to record?", "acceptedAnswer": {"@type": "Answer", "text": "Laws differ by country. In some places you must have the consent of everyone being recorded — please make sure you comply with your local laws."}}]}
 </script>
 </head>
 <body>
@@ -237,6 +233,7 @@ footer .links{margin-left:auto;display:flex;gap:20px}
   <div class="wrap">
     <h2>How it <span class="grad">works</span></h2>
     <p class="lead">No planning, no pressing record at the right time. It already was.</p>
+    <p class="fact">Life Recorder is a free Android app that keeps a rolling one-hour audio buffer on the phone; one tap saves the last minutes after the moment happened. Audio never leaves the device.</p>
     <div class="steps">
       <div class="step"><h3><span class="n">1.</span> Start once</h3>
         <p>Tap START and Life Recorder listens in the background, keeping a rolling
@@ -372,6 +369,10 @@ footer .links{margin-left:auto;display:flex;gap:20px}
       <a href="record-meeting-after-it-happened/">For meetings</a>
       <a href="baby-first-words-recorder/">For family moments</a>
       <a href="record-lecture-after/">For lectures</a>
+      <a href="record-what-someone-just-said/">Just said</a>
+      <a href="record-the-last-hour-of-audio/">Last hour</a>
+      <a href="voice-recorder-that-works-backwards/">Backwards</a>
+      <a href="save-an-idea-after-you-said-it/">For ideas</a>
       <a href="privacy.html">Privacy Policy</a>
       <a href="terms.html">Terms of Use</a>
     </div>

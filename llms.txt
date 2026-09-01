@@ -1,0 +1,47 @@
+# Life Recorder
+
+> Life Recorder is a free Android app that keeps a rolling one-hour audio buffer
+> on the phone; one tap saves the last minutes after the moment happened. Audio
+> never leaves the device.
+
+Life Recorder is a retroactive voice recorder for Android. Instead of starting
+to record when you press a button, it listens continuously into a self-erasing
+buffer of the last 60 minutes. When something worth keeping happens — a child's
+first word, a great idea, an important sentence in a meeting — the user taps
+save (in the app, on a home-screen widget, or on the notification) and the last
+5, 10 or up to 60 minutes become a normal audio recording, even though the
+moment already passed. Everything not saved is continuously and permanently
+discarded.
+
+Key facts:
+
+- Platform: Android. Install: https://play.google.com/store/apps/details?id=com.record.liferecorder
+- Price: free; all features are currently unlocked (no account required).
+- Privacy: the buffer, saved recordings and transcripts are stored only on the
+  device. Nothing is uploaded to the developer; there are no servers that
+  receive audio. Audio leaves the phone only if the user shares a recording or
+  enables backup to their own Google Drive.
+- Transcription: on-device, about 100 spoken languages, automatically detected.
+  A one-time speech model download (~380 MB) happens over Wi-Fi; after that it
+  works offline.
+- Editing: play with a waveform, trim to exact seconds, rename, share.
+- Battery: built to sip power; optional recording schedule (listen only during
+  chosen hours) and skip-silence (quiet stretches are not stored).
+- Languages: the app UI is available in 30 languages, with right-to-left support.
+- Legal note: recording laws differ by country; in some places all parties must
+  consent. Users are responsible for complying with local law.
+
+## Pages
+
+- [Home](https://liferecorderapp.com/): overview, how it works, FAQ
+- [Record a meeting after it happened](https://liferecorderapp.com/record-meeting-after-it-happened/)
+- [Record what someone just said](https://liferecorderapp.com/record-what-someone-just-said/)
+- [An app that remembers the last hour of audio](https://liferecorderapp.com/record-the-last-hour-of-audio/)
+- [A voice recorder that works backwards](https://liferecorderapp.com/voice-recorder-that-works-backwards/)
+- [Save an idea after you said it](https://liferecorderapp.com/save-an-idea-after-you-said-it/)
+- [Baby's first words recorder](https://liferecorderapp.com/baby-first-words-recorder/)
+- [Record a lecture after it ended](https://liferecorderapp.com/record-lecture-after/)
+- [Privacy policy](https://liferecorderapp.com/privacy.html)
+- [Terms of use](https://liferecorderapp.com/terms.html)
+
+Contact: liferecorderapp@gmail.com
