@@ -153,6 +153,24 @@ h2{font-size:clamp(26px,3.4vw,36px);font-weight:800;margin-bottom:14px}
   border-radius:14px;padding:18px 22px;margin-bottom:12px}
 .faq summary{cursor:pointer;font-weight:600;font-size:16px}
 .faq details p{margin-top:10px;color:var(--dim);font-size:15px}
+.uc{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.uc a{display:block;background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.14);
+  border-radius:16px;padding:22px;color:var(--text);transition:border-color .2s,transform .2s}
+.uc a:hover{border-color:rgba(100,210,255,.5);transform:translateY(-2px)}
+.uc .emoji{font-size:24px;display:block;margin-bottom:10px}
+.uc h3{font-size:17px;margin-bottom:6px}
+.uc p{color:var(--dim);font-size:14px}
+.uc .more{display:inline-block;margin-top:10px;color:var(--end);font-size:13.5px;font-weight:600}
+.reviews{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.review{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.14);
+  border-radius:16px;padding:24px;display:flex;flex-direction:column}
+.review .stars{color:#f5c451;font-size:17px;letter-spacing:2px;margin-bottom:12px}
+.review blockquote{font-size:16.5px;line-height:1.55;color:var(--text);flex:1}
+.review .who{margin-top:14px;color:var(--dim)!important;font-size:13px}
+.review.rating{align-items:center;justify-content:center;text-align:center}
+.review.rating .big{font-size:44px;font-weight:800;line-height:1.1}
+.review.rating .stars{font-size:22px;margin:8px 0 4px}
+.review.rating p{color:var(--dim);font-size:14px}
 .cta{text-align:center;padding:80px 0}
 footer{border-top:1px solid rgba(255,255,255,.1);padding:34px 0;color:var(--dim);font-size:14px}
 footer .wrap{display:flex;flex-wrap:wrap;gap:18px;align-items:center}
@@ -292,6 +310,29 @@ footer .links{margin-left:auto;display:flex;gap:20px}
   </div>
 </section>
 
+<section id="use-cases">
+  <div class="wrap">
+    <h2>Made for moments <span class="grad">like these</span></h2>
+    <p class="lead">The same rolling hour, pointed at the moments people actually lose.</p>
+    <div class="uc">
+      <a href="record-what-someone-just-said/"><span class="emoji">🗣️</span><h3>They just said it</h3>
+        <p>A number, an address, the exact wording of a promise — save it after they said it.</p><span class="more">How it works →</span></a>
+      <a href="record-meeting-after-it-happened/"><span class="emoji">📋</span><h3>The meeting moment</h3>
+        <p>The decision was made and nobody was recording. Save it afterwards — then get minutes as text.</p><span class="more">How it works →</span></a>
+      <a href="baby-first-words-recorder/"><span class="emoji">👶</span><h3>First words</h3>
+        <p>Kids never repeat the moment for the camera. Now you don't need them to.</p><span class="more">How it works →</span></a>
+      <a href="record-lecture-after/"><span class="emoji">🎓</span><h3>The lecture you drifted through</h3>
+        <p>Zoned out for the key part? Save the last half hour of class and replay it.</p><span class="more">How it works →</span></a>
+      <a href="save-an-idea-after-you-said-it/"><span class="emoji">💡</span><h3>Ideas said out loud</h3>
+        <p>The good phrasing happens mid-conversation. Keep the version you actually said.</p><span class="more">How it works →</span></a>
+      <a href="voice-recorder-that-works-backwards/"><span class="emoji">⏪</span><h3>A recorder that works backwards</h3>
+        <p>Press save, not record — the recording starts in the past.</p><span class="more">How it works →</span></a>
+      <a href="record-the-last-hour-of-audio/"><span class="emoji">🕐</span><h3>The last hour, remembered</h3>
+        <p>How the rolling buffer keeps an hour on your phone — and nothing anywhere else.</p><span class="more">How it works →</span></a>
+    </div>
+  </div>
+</section>
+
 <section id="screenshots">
   <div class="wrap">
     <h2>Inside the <span class="grad">app</span></h2>
@@ -342,6 +383,31 @@ footer .links{margin-left:auto;display:flex;gap:20px}
         <p>Laws differ by country. In some places you must have the consent of everyone being
         recorded — please make sure you comply with your local laws.</p></details>
     </div>
+  </div>
+</section>
+
+<section id="reviews">
+  <div class="wrap">
+    <h2>What people <span class="grad">say</span></h2>
+    <p class="lead">Real reviews from Google Play.</p>
+    <div class="reviews">
+      <div class="review rating">
+        <div class="big">4.4</div>
+        <div class="stars">★★★★★</div>
+        <p>average rating on Google Play</p>
+      </div>
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <blockquote>“You don't press record. You press save. What I needed, so I can recall text the way I said it”</blockquote>
+        <p class="who">Google Play review · August 2026</p>
+      </div>
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <blockquote>“I use it alot and it works wonderfully 10/10 would 100% recommend”</blockquote>
+        <p class="who">Google Play review · August 2026</p>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:22px"><a href="https://play.google.com/store/apps/details?id=com.record.liferecorder&amp;referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dreviews" onclick="installClick(event,'reviews')">Read all reviews on Google Play →</a></p>
   </div>
 </section>
 
