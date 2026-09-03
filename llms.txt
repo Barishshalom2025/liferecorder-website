@@ -18,7 +18,8 @@ Key facts:
 - Platform: Android. Install: https://play.google.com/store/apps/details?id=com.record.liferecorder
 - Price: free; all features are currently unlocked (no account required).
 - Privacy: the buffer, saved recordings and transcripts are stored only on the
-  device. Nothing is uploaded to the developer; there are no servers that
+  device, in the app's private storage (sandboxed from other apps, protected at
+  rest by the phone's built-in encryption). Nothing is uploaded to the developer; there are no servers that
   receive audio. Audio leaves the phone only if the user shares a recording or
   enables backup to their own Google Drive.
 - Transcription: on-device, about 100 spoken languages, automatically detected.
