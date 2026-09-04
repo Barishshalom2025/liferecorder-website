@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Life Recorder — Save the moment after it happens</title>
+<!-- Short link sent with every shared clip (the app's share caption). Chat
+     apps unfurl this page, not the Play page behind the redirect, so it
+     carries the same preview card as the homepage. -->
+<meta property="og:title" content="Life Recorder — Save the moment after it happens">
+<meta property="og:description" content="Recorded with Life Recorder, the Android app that saves audio AFTER the moment happened. Free on Google Play.">
+<meta property="og:image" content="https://liferecorderapp.com/assets/life-recorder-save-the-moment-after-it-happens.png">
+<meta property="og:url" content="https://liferecorderapp.com/share/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Life Recorder — Save the moment after it happens">
+<meta name="twitter:description" content="Recorded with Life Recorder, the Android app that saves audio AFTER the moment happened. Free on Google Play.">
+<meta name="twitter:image" content="https://liferecorderapp.com/assets/life-recorder-save-the-moment-after-it-happens.png">
+<link rel="preconnect" href="https://play.google.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<!-- Fallback if JS is disabled or the tracked redirect below does not run -->
+<meta http-equiv="refresh" content="3; url=https://play.google.com/store/apps/details?id=com.record.liferecorder&amp;referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dshare">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M2YELX05EM"></script>
+<script>
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());gtag('config','G-M2YELX05EM');
+</script>
+<script>
+(function(){
+  var target="https://play.google.com/store/apps/details?id=com.record.liferecorder&referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dshare";
+  var went=false;
+  function go(){if(went)return;went=true;location.replace(target);}
+  // Redirecting at 200ms raced the async gtag.js load and lost every event
+  // (GA4 recorded zero /get clicks while the page had real visits). Wait for
+  // the event to actually send, capped at 800ms.
+  try{
+    gtag('event','install_click',
+      {placement:'share',transport_type:'beacon',event_callback:go,event_timeout:800});
+  }catch(e){}
+  setTimeout(go,800);
+})();
+</script>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<style>body{background:linear-gradient(180deg,#1a2233,#121826);color:#f2f5fa;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;display:grid;place-items:center;min-height:100vh;margin:0;text-align:center}
+a{color:#64d2ff;text-decoration:none}</style>
+</head>
+<body><p>Taking you to Google Play…<br>
+<a href="https://play.google.com/store/apps/details?id=com.record.liferecorder&amp;referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dshare" onclick="gtag('event','install_click',{placement:'share', transport_type:'beacon'})">Tap here if nothing happens</a></p></body>
+</html>
