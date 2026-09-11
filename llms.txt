@@ -16,7 +16,7 @@ discarded.
 Key facts:
 
 - Platform: Android. Install: https://play.google.com/store/apps/details?id=com.record.liferecorder
-- Price: free; all features are currently unlocked (no account required).
+- Price: free to download and use (listening, saving, trimming, sharing). PRO subscription adds on-device transcription, skip silence and Google Drive backup; a free first week; inviting a friend gives both a free month. No account required.
 - Privacy: the buffer, saved recordings and transcripts are stored only on the
   device, in the app's private storage (sandboxed from other apps, protected at
   rest by the phone's built-in encryption). Nothing is uploaded to the developer; there are no servers that
