@@ -6,28 +6,49 @@
 <meta name="robots" content="noindex">
 <title>Life Recorder — Get it on Google Play</title>
 <link rel="preconnect" href="https://play.google.com" crossorigin>
-<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
 <!-- Fallback if JS is disabled or the tracked redirect below does not run -->
 <meta http-equiv="refresh" content="3; url=https://play.google.com/store/apps/details?id=com.record.liferecorder&amp;referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dget">
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-M2YELX05EM"></script>
-<script>
-window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
-gtag('js',new Date());gtag('config','G-M2YELX05EM');
-</script>
+<!-- GA4 by hand, not gtag.js: this page leaves for Play at once, and an async library
+     that has not finished loading sends nothing. 2026-09-15: /share and /shareapp showed
+     7 sessions in 28 days while the referral ledger proved the links were really used -
+     the 800ms wait added for the same reason still lost every slow mobile load. sendBeacon
+     is queued by the browser and survives the navigation, so the hit no longer races it. -->
 <script>
 (function(){
-  var target="https://play.google.com/store/apps/details?id=com.record.liferecorder&referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dget";
-  var went=false;
-  function go(){if(went)return;went=true;location.replace(target);}
-  // Redirecting at 200ms raced the async gtag.js load and lost every event
-  // (GA4 recorded zero /get clicks while the page had real visits). Wait for
-  // the event to actually send, capped at 800ms.
+  var C="get";  // the only line that differs between the redirect pages
+  var target="https://play.google.com/store/apps/details?id=com.record.liferecorder&referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3D"+C;
+  // The sharer's invite code rides into the Play install referrer, where the friend's
+  // first launch reads it and both sides get their PRO days (ReferralManager in the app).
+  var ref=(new URLSearchParams(location.search).get("ref")||"").toUpperCase();
+  if(/^[A-Z2-9]{8}$/.test(ref)){target+="%26ref%3D"+ref;}
+  var queued=true;
   try{
-    gtag('event','install_click',
-      {placement:'get',transport_type:'beacon',event_callback:go,event_timeout:800});
+    var ls=null; try{ls=localStorage;}catch(e){}
+    function keep(k,v){if(ls){try{ls.setItem(k,v);}catch(e){}}}
+    function read(k){if(ls){try{return ls.getItem(k);}catch(e){}}return null;}
+    var cid=read("lr_cid")||(Math.floor(Math.random()*1e9)+"."+Math.floor(Date.now()/1000));
+    keep("lr_cid",cid);
+    var fresh=!read("lr_seen"); keep("lr_seen","1");
+    var base="https://www.google-analytics.com/g/collect?v=2&tid=G-M2YELX05EM"+
+      "&cid="+encodeURIComponent(cid)+
+      "&sid="+Math.floor(Date.now()/1000)+"&sct=1&seg=1"+
+      "&ul="+encodeURIComponent((navigator.language||"en").toLowerCase())+
+      "&sr="+screen.width+"x"+screen.height+
+      "&dl="+encodeURIComponent(location.href)+
+      "&dt="+encodeURIComponent(document.title)+
+      (document.referrer?"&dr="+encodeURIComponent(document.referrer):"")+
+      (fresh?"&_fv=1&_ss=1":"");
+    function hit(tail){
+      var u=base+"&_p="+Math.floor(Math.random()*1e9)+tail;
+      // sendBeacon survives unload; the image fallback needs a moment, so remember which ran.
+      if(navigator.sendBeacon&&navigator.sendBeacon(u))return;
+      queued=false; new Image().src=u;
+    }
+    hit("&_s=1&en=page_view&_et=1");
+    hit("&_s=2&en=install_click&ep.placement="+C+"&ep.invite="+(ref?"yes":"no"));
   }catch(e){}
-  setTimeout(go,800);
+  setTimeout(function(){location.replace(target);}, queued?0:400);
 })();
 </script>
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
@@ -35,5 +56,5 @@ gtag('js',new Date());gtag('config','G-M2YELX05EM');
 a{color:#64d2ff;text-decoration:none}</style>
 </head>
 <body><p>Taking you to Google Play…<br>
-<a href="https://play.google.com/store/apps/details?id=com.record.liferecorder&amp;referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dget" onclick="gtag('event','install_click',{placement:'get', transport_type:'beacon'})">Tap here if nothing happens</a></p></body>
+<a href="https://play.google.com/store/apps/details?id=com.record.liferecorder&amp;referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dget">Tap here if nothing happens</a></p></body>
 </html>
