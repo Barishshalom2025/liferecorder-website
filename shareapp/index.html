@@ -20,24 +20,35 @@
 <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
 <!-- Fallback if JS is disabled or the tracked redirect below does not run -->
 <meta http-equiv="refresh" content="3; url=https://play.google.com/store/apps/details?id=com.record.liferecorder&amp;referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dshareapp">
-<!-- GA4 by hand, not gtag.js: this page leaves for Play at once, and an async library
+<!-- GA4 by hand, not gtag.js: this page leaves for the store at once, and an async library
      that has not finished loading sends nothing. 2026-09-15: /share and /shareapp showed
-     7 sessions in 28 days while the referral ledger proved the links were really used -
-     the 800ms wait added for the same reason still lost every slow mobile load. sendBeacon
-     is queued by the browser and survives the navigation, so the hit no longer races it. -->
+     7 sessions in 28 days while the referral ledger proved the links were really used.
+     sendBeacon is queued by the browser and survives the navigation. -->
 <script>
 (function(){
   var C="shareapp";  // the only line that differs between the redirect pages
-  var target="https://play.google.com/store/apps/details?id=com.record.liferecorder&referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3D"+C;
-  // The sharer's invite code rides into the Play install referrer, where the friend's
-  // first launch reads it and both sides get their PRO days (ReferralManager in the app).
+  // The App Store listing is not public until Apple approves 2.0.0. Flip to true on the
+  // day it goes live and iPhone visitors will be sent straight to the store instead.
+  var IOS_LIVE=false;
+  var PLAY="https://play.google.com/store/apps/details?id=com.record.liferecorder&referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3D"+C;
+  var APPSTORE="https://apps.apple.com/app/id6812500586";
+  // The sharer's invite code. Android carries it into the Play install referrer by itself;
+  // iOS has no deferred deep link, so the friend has to read it and type it in the app
+  // (PlatformFeature.CodeReferral / the "Have an invite code?" field).
   var ref=(new URLSearchParams(location.search).get("ref")||"").toUpperCase();
-  if(/^[A-Z2-9]{8}$/.test(ref)){target+="%26ref%3D"+ref;}
+  if(!/^[A-Z2-9]{8}$/.test(ref)) ref="";
+  var ua=navigator.userAgent||"";
+  var android=/Android/i.test(ua);
+  // iPadOS 13+ reports itself as a Mac, so touch points are the only tell.
+  var ios=/iPad|iPhone|iPod/.test(ua)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+  var platform=android?"android":(ios?"ios":"desktop");
+  var target=android?(PLAY+(ref?"%26ref%3D"+ref:"")):(ios&&IOS_LIVE?APPSTORE:null);
+
+  var ls=null; try{ls=localStorage;}catch(e){}
+  function keep(k,v){if(ls){try{ls.setItem(k,v);}catch(e){}}}
+  function read(k){if(ls){try{return ls.getItem(k);}catch(e){}}return null;}
   var queued=true;
   try{
-    var ls=null; try{ls=localStorage;}catch(e){}
-    function keep(k,v){if(ls){try{ls.setItem(k,v);}catch(e){}}}
-    function read(k){if(ls){try{return ls.getItem(k);}catch(e){}}return null;}
     var cid=read("lr_cid")||(Math.floor(Math.random()*1e9)+"."+Math.floor(Date.now()/1000));
     keep("lr_cid",cid);
     var fresh=!read("lr_seen"); keep("lr_seen","1");
@@ -52,20 +63,48 @@
       (fresh?"&_fv=1&_ss=1":"");
     function hit(tail){
       var u=base+"&_p="+Math.floor(Math.random()*1e9)+tail;
-      // sendBeacon survives unload; the image fallback needs a moment, so remember which ran.
       if(navigator.sendBeacon&&navigator.sendBeacon(u))return;
       queued=false; new Image().src=u;
     }
     hit("&_s=1&en=page_view&_et=1");
-    hit("&_s=2&en=install_click&ep.placement="+C+"&ep.invite="+(ref?"yes":"no"));
+    hit("&_s=2&en=install_click&ep.placement="+C+"&ep.invite="+(ref?"yes":"no")+"&ep.platform="+platform);
   }catch(e){}
-  setTimeout(function(){location.replace(target);}, queued?0:400);
+
+  if(target){ setTimeout(function(){location.replace(target);}, queued?0:400); return; }
+
+  // Desktop, and iPhone until the App Store listing is live: stay here and say something
+  // useful instead of bouncing the visitor to a store they cannot use.
+  document.addEventListener("DOMContentLoaded",function(){
+    var el=document.getElementById("card"); if(!el) return;
+    // An invite seen here is remembered, so a friend who loses the chat message can claim
+    // it from any later visit to the site (Bar, 2026-09-16).
+    if(ref) keep("lr_ref",ref);
+    var known=ref||read("lr_ref")||"";
+    var code=known?'<p class="code">Your invite code<br><b>'+known+'</b></p>':"";
+    // iOS has no deferred deep link, so the code cannot ride the install. The friend gets
+    // both doors on one card: install, then come back and tap open - which hands the code
+    // over with nobody retyping it. The printed code stays as the fallback for anyone who
+    // never comes back (Bar, 2026-09-16).
+    var open_=known?'<p><a class="btn" href="liferecorder://ref/'+known+'">Open the app with my code</a></p>':"";
+    var download=ios
+      ? (IOS_LIVE?'<p><a class="btn" href="'+APPSTORE+'">Download on the App Store</a></p>'
+                : '<p class="hint">Life Recorder is coming to iPhone shortly - your code stays valid.</p>')
+      : '<p><a class="btn" href="'+PLAY+(known?"%26ref%3D"+known:"")+'">Get it on Google Play</a></p>';
+    var order=ios?(code+download+open_):(code+download+open_);
+    el.innerHTML='<h1>Life Recorder</h1><p class="tag">Save the moment after it happened.</p>'+order+
+      (known?'<p class="hint">New here? Download first, then come back and tap open - the code applies itself.</p>':"");
+  });
 })();
 </script>
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
-<style>body{background:linear-gradient(180deg,#1a2233,#121826);color:#f2f5fa;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;display:grid;place-items:center;min-height:100vh;margin:0;text-align:center}
-a{color:#64d2ff;text-decoration:none}</style>
+<style>body{background:linear-gradient(180deg,#1a2233,#121826);color:#f2f5fa;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;display:grid;place-items:center;min-height:100vh;margin:0;text-align:center;padding:24px}
+a{color:#64d2ff;text-decoration:none}
+#card h1{font-size:28px;margin:0 0 6px}
+#card .tag{color:#aab6c8;margin:0 0 22px}
+#card .code{font-size:15px;color:#aab6c8;line-height:1.9;margin:0 0 4px}
+#card .code b{font-size:30px;letter-spacing:.14em;color:#64d2ff;font-weight:700}
+#card .hint{font-size:14px;color:#8e9bb0;max-width:22em;margin:6px auto 18px}
+#card .btn{display:inline-block;padding:12px 22px;border-radius:26px;background:linear-gradient(90deg,#5e5ce6,#64d2ff);color:#fff;font-weight:600}</style>
 </head>
-<body><p>Taking you to Google Play…<br>
-<a href="https://play.google.com/store/apps/details?id=com.record.liferecorder&amp;referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dshareapp">Tap here if nothing happens</a></p></body>
+<body><div id="card"><p>Taking you to the store…</p></div></body>
 </html>

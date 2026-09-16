@@ -1,0 +1,15 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["9L5884QXU2.com.record.liferecorder"],
+        "components": [
+          { "/": "/shareapp*", "comment": "invite link - carries ?ref=CODE" },
+          { "/": "/share*", "comment": "a shared recording" },
+          { "/": "/sharetranscript*", "comment": "a shared transcript" },
+          { "/": "/get*", "comment": "the short install link" }
+        ]
+      }
+    ]
+  }
+}
