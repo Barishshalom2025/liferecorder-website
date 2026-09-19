@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.record.liferecorder",
+      "sha256_cert_fingerprints": [
+        "34:35:D0:5A:52:F1:3E:E4:5D:4A:57:DA:03:B0:27:3A:A2:5E:C4:A9:A0:EF:AB:87:7E:B9:72:9A:F3:0E:6B:E9",
+        "F1:21:A2:FD:5D:E1:D1:13:1F:E7:91:38:3B:E1:AC:22:6B:E9:AB:24:E8:16:12:C3:63:92:67:AD:63:98:25:5D"
+      ]
+    }
+  }
+]
