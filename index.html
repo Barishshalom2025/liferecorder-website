@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-ios="0">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -174,7 +174,7 @@ h2{font-size:clamp(26px,3.4vw,36px);font-weight:800;margin-bottom:14px}
 .cta{text-align:center;padding:80px 0}
 footer{border-top:1px solid rgba(255,255,255,.1);padding:34px 0;color:var(--dim);font-size:14px}
 footer .wrap{display:flex;flex-wrap:wrap;gap:18px;align-items:center}
-footer .links{margin-left:auto;display:flex;gap:20px}
+footer .links{margin-left:auto;display:flex;flex-wrap:wrap;gap:10px 20px}@media (max-width:720px){footer .links{margin-left:0}}
 /* Sticky install bar — mobile only */
 .installbar{display:none}
 @media (max-width:720px){
@@ -194,10 +194,19 @@ footer .links{margin-left:auto;display:flex;gap:20px}
   .installbar .ib-text{font-size:13.5px;color:var(--dim);line-height:1.3}
   .installbar .ib-text b{display:block;color:var(--text);font-size:15px;font-weight:700}
   .installbar .btn-install{margin-left:auto;padding:10px 18px;font-size:15px}
-}
+}[data-ios="0"] .ios-only{display:none!important}.badge-ios img{height:48px;display:block}.badge-ios{display:inline-flex;align-items:center;min-height:64px}.installbar .ios-only{display:none}[data-ios="1"][data-plat="ios"] .installbar .ios-only{display:inline-flex}[data-ios="1"][data-plat="ios"] .installbar .btn-install:not(.ios-only){display:none}
 </style>
 <script type="application/ld+json">
 {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How can it record something that already happened?", "acceptedAnswer": {"@type": "Answer", "text": "While listening, Life Recorder keeps a rolling buffer of the last hour of audio. When you tap save, the last minutes of that buffer become a recording. Anything older than an hour is continuously and permanently discarded."}}, {"@type": "Question", "name": "Is my audio uploaded anywhere?", "acceptedAnswer": {"@type": "Answer", "text": "Never to us — we have no servers that receive audio. The buffer and your saved recordings live on your phone, and transcription runs entirely on-device. Audio leaves your phone only if you share it yourself, or if you switch on the optional backup to your own Google Drive."}}, {"@type": "Question", "name": "Can other apps or hackers access the recordings?", "acceptedAnswer": {"@type": "Answer", "text": "The buffer and your recordings live in the app's private storage, which Android walls off from every other app, and your phone's built-in encryption protects them at rest. Nothing is uploaded — there is no server to hack. Audio leaves your phone only if you share it yourself."}}, {"@type": "Question", "name": "Does it drain the battery?", "acceptedAnswer": {"@type": "Answer", "text": "It's built to sip power. You can also set a recording schedule (only listen during chosen hours) and enable skip-silence so quiet stretches aren't stored at all."}}, {"@type": "Question", "name": "Which languages can it transcribe?", "acceptedAnswer": {"@type": "Answer", "text": "About 100 spoken languages, automatically detected. The one-time speech model download (~380 MB) happens over Wi-Fi; after that transcription works offline. Automatic transcripts may contain mistakes."}}, {"@type": "Question", "name": "What is free and what is PRO?", "acceptedAnswer": {"@type": "Answer", "text": "Listening, saving, trimming and sharing are free, with no account. PRO adds on-device transcription, skip silence and backup to your own Google Drive: $1.99 a month or $11.99 a year, with a free first week. Invite a friend and you both get a month of PRO free."}}, {"@type": "Question", "name": "Is it legal to record?", "acceptedAnswer": {"@type": "Answer", "text": "Laws differ by country. In some places you must have the consent of everyone being recorded — please make sure you comply with your local laws."}}]}
+</script>
+<script>
+/* Which store to put in front of this visitor. iPadOS 13+ reports itself as a Mac, so touch
+   points are the only tell - the same test the /share redirect pages use. The bar at the
+   bottom has room for ONE button on a phone, and offering an Android button to an iPhone is
+   worse than offering nothing. */
+(function(){var u=navigator.userAgent||"";
+ var ios=/iPad|iPhone|iPod/.test(u)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+ document.documentElement.setAttribute("data-plat", ios?"ios":(/Android/i.test(u)?"android":"desktop"));})();
 </script>
 </head>
 <body>
@@ -212,6 +221,7 @@ footer .links{margin-left:auto;display:flex;gap:20px}
       <a href="#faq">FAQ</a>
       <a href="privacy.html">Privacy</a>
       <a class="btn-install" href="https://play.google.com/store/apps/details?id=com.record.liferecorder&amp;referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dheader" onclick="installClick(event,'header')">Install free</a>
+    <a class="btn-install ios-only" href="https://apps.apple.com/app/id6812500586" onclick="installClick(event,'header_ios')">Install free on the App&nbsp;Store</a>
     </nav>
   </div>
 </header>
@@ -228,7 +238,9 @@ footer .links{margin-left:auto;display:flex;gap:20px}
         <a class="badge" href="https://play.google.com/store/apps/details?id=com.record.liferecorder&amp;referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dhero" onclick="installClick(event,'hero')">
           <img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" width="180" height="64">
         </a>
+        <a class="badge badge-ios ios-only" href="https://apps.apple.com/app/id6812500586" onclick="installClick(event,'hero_ios')"><img alt="Download on the App Store" src="assets/download-on-the-app-store.svg" width="143" height="48"></a>
         <a class="btn-install" href="https://play.google.com/store/apps/details?id=com.record.liferecorder&amp;referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dhero" onclick="installClick(event,'hero')">Install free on Google Play</a>
+    <a class="btn-install ios-only" href="https://apps.apple.com/app/id6812500586" onclick="installClick(event,'hero_ios')">Install free on the App&nbsp;Store</a>
       </div>
       <p class="trust">Free to download · No account · <b>Recordings are never uploaded to us</b> · Records and transcribes offline</p>
     </div>
@@ -281,6 +293,7 @@ footer .links{margin-left:auto;display:flex;gap:20px}
     </div>
     <div class="cta-row" style="justify-content:center;margin-top:26px">
       <a class="btn-install" href="https://play.google.com/store/apps/details?id=com.record.liferecorder&amp;referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dvideo" onclick="installClick(event,'video')">Install free on Google Play</a>
+    <a class="btn-install ios-only" href="https://apps.apple.com/app/id6812500586" onclick="installClick(event,'video_ios')">Install free on the App&nbsp;Store</a>
     </div>
   </div>
 </section>
@@ -430,7 +443,9 @@ footer .links{margin-left:auto;display:flex;gap:20px}
       <a class="badge" href="https://play.google.com/store/apps/details?id=com.record.liferecorder&amp;referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dfooter" onclick="installClick(event,'footer')">
         <img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" width="180" height="64">
       </a>
+        <a class="badge badge-ios ios-only" href="https://apps.apple.com/app/id6812500586" onclick="installClick(event,'footer_ios')"><img alt="Download on the App Store" src="assets/download-on-the-app-store.svg" width="143" height="48"></a>
       <a class="btn-install" href="https://play.google.com/store/apps/details?id=com.record.liferecorder&amp;referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dfooter" onclick="installClick(event,'footer')">Install free on Google Play</a>
+    <a class="btn-install ios-only" href="https://apps.apple.com/app/id6812500586" onclick="installClick(event,'footer_ios')">Install free on the App&nbsp;Store</a>
     </div>
     <p class="trust">Free to download · No account · <b>Recordings are never uploaded to us</b> · Records and transcribes offline</p>
   </div>
@@ -456,8 +471,9 @@ footer .links{margin-left:auto;display:flex;gap:20px}
 </footer>
 
 <div class="installbar">
-  <span class="ib-text"><b>Life Recorder</b>Free to download · Android · no account</span>
+  <span class="ib-text"><b>Life Recorder</b>Free to download · Android</span>
   <a class="btn-install" href="https://play.google.com/store/apps/details?id=com.record.liferecorder&amp;referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dsticky" onclick="installClick(event,'sticky')">Install free</a>
+    <a class="btn-install ios-only" href="https://apps.apple.com/app/id6812500586" onclick="installClick(event,'sticky_ios')">Install free</a>
 </div>
 
 <script>

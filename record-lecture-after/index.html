@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-ios="0">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -64,8 +64,17 @@ article p{color:var(--dim);font-size:16.5px}
 .trust b{color:var(--text)}
 .fact{margin:14px 0 4px;padding:14px 18px;border-left:3px solid var(--end);background:rgba(100,210,255,.06);border-radius:0 12px 12px 0;color:var(--text);font-size:16px}
 footer{border-top:1px solid rgba(255,255,255,.07);padding:22px 0 40px;color:var(--dim);font-size:14px}
-footer .wrap{display:flex;gap:18px;flex-wrap:wrap;max-width:1060px}
+footer .wrap{display:flex;gap:18px;flex-wrap:wrap;max-width:1060px}[data-ios="0"] .ios-only{display:none!important}.badge-ios img{height:48px;display:block}.badge-ios{display:inline-flex;align-items:center;min-height:64px}.installbar .ios-only{display:none}[data-ios="1"][data-plat="ios"] .installbar .ios-only{display:inline-flex}[data-ios="1"][data-plat="ios"] .installbar .btn-install:not(.ios-only){display:none}
 </style>
+<script>
+/* Which store to put in front of this visitor. iPadOS 13+ reports itself as a Mac, so touch
+   points are the only tell - the same test the /share redirect pages use. The bar at the
+   bottom has room for ONE button on a phone, and offering an Android button to an iPhone is
+   worse than offering nothing. */
+(function(){var u=navigator.userAgent||"";
+ var ios=/iPad|iPhone|iPod/.test(u)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+ document.documentElement.setAttribute("data-plat", ios?"ios":(/Android/i.test(u)?"android":"desktop"));})();
+</script>
 </head>
 <body>
 <header><div class="wrap">
@@ -86,7 +95,9 @@ footer .wrap{display:flex;gap:18px;flex-wrap:wrap;max-width:1060px}
     <a class="badge" href="https://play.google.com/store/apps/details?id=com.record.liferecorder&amp;referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dusecase_lectures" onclick="installClick(event,'cta')">
       <img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" width="180" height="64">
     </a>
+        <a class="badge badge-ios ios-only" href="https://apps.apple.com/app/id6812500586" onclick="installClick(event,'cta_ios')"><img alt="Download on the App Store" src="../assets/download-on-the-app-store.svg" width="143" height="48"></a>
     <a class="btn-install" href="https://play.google.com/store/apps/details?id=com.record.liferecorder&amp;referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dusecase_lectures" onclick="installClick(event,'cta')">Install free on Google Play</a>
+    <a class="btn-install ios-only" href="https://apps.apple.com/app/id6812500586" onclick="installClick(event,'cta_ios')">Install free on the App&nbsp;Store</a>
   </div>
   <p class="trust">Free to download · No account · <b>Recordings are never uploaded</b> · Works and transcribes offline</p>
 </div></div>
