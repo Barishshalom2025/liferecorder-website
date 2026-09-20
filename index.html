@@ -194,7 +194,7 @@ footer .links{margin-left:auto;display:flex;flex-wrap:wrap;gap:10px 20px}@media 
   .installbar .ib-text{font-size:13.5px;color:var(--dim);line-height:1.3}
   .installbar .ib-text b{display:block;color:var(--text);font-size:15px;font-weight:700}
   .installbar .btn-install{margin-left:auto;padding:10px 18px;font-size:15px}
-}[data-ios="0"] .ios-only{display:none!important}.badge-ios img{height:48px;display:block}.badge-ios{display:inline-flex;align-items:center;min-height:64px}.installbar .ios-only{display:none}[data-ios="1"][data-plat="ios"] .installbar .ios-only{display:inline-flex}[data-ios="1"][data-plat="ios"] .installbar .btn-install:not(.ios-only){display:none}
+}[data-ios="0"] .ios-only{display:none!important}.badge-ios img{height:48px;display:block}.badge-ios{display:inline-flex;align-items:center;min-height:64px}
 </style>
 <script type="application/ld+json">
 {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How can it record something that already happened?", "acceptedAnswer": {"@type": "Answer", "text": "While listening, Life Recorder keeps a rolling buffer of the last hour of audio. When you tap save, the last minutes of that buffer become a recording. Anything older than an hour is continuously and permanently discarded."}}, {"@type": "Question", "name": "Is my audio uploaded anywhere?", "acceptedAnswer": {"@type": "Answer", "text": "Never to us — we have no servers that receive audio. The buffer and your saved recordings live on your phone, and transcription runs entirely on-device. Audio leaves your phone only if you share it yourself, or if you switch on the optional backup to your own Google Drive."}}, {"@type": "Question", "name": "Can other apps or hackers access the recordings?", "acceptedAnswer": {"@type": "Answer", "text": "The buffer and your recordings live in the app's private storage, which Android walls off from every other app, and your phone's built-in encryption protects them at rest. Nothing is uploaded — there is no server to hack. Audio leaves your phone only if you share it yourself."}}, {"@type": "Question", "name": "Does it drain the battery?", "acceptedAnswer": {"@type": "Answer", "text": "It's built to sip power. You can also set a recording schedule (only listen during chosen hours) and enable skip-silence so quiet stretches aren't stored at all."}}, {"@type": "Question", "name": "Which languages can it transcribe?", "acceptedAnswer": {"@type": "Answer", "text": "About 100 spoken languages, automatically detected. The one-time speech model download (~380 MB) happens over Wi-Fi; after that transcription works offline. Automatic transcripts may contain mistakes."}}, {"@type": "Question", "name": "What is free and what is PRO?", "acceptedAnswer": {"@type": "Answer", "text": "Listening, saving, trimming and sharing are free, with no account. PRO adds on-device transcription, skip silence and backup to your own Google Drive: $1.99 a month or $11.99 a year, with a free first week. Invite a friend and you both get a month of PRO free."}}, {"@type": "Question", "name": "Is it legal to record?", "acceptedAnswer": {"@type": "Answer", "text": "Laws differ by country. In some places you must have the consent of everyone being recorded — please make sure you comply with your local laws."}}]}
@@ -207,6 +207,20 @@ footer .links{margin-left:auto;display:flex;flex-wrap:wrap;gap:10px 20px}@media 
 (function(){var u=navigator.userAgent||"";
  var ios=/iPad|iPhone|iPod/.test(u)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
  document.documentElement.setAttribute("data-plat", ios?"ios":(/Android/i.test(u)?"android":"desktop"));})();
+</script>
+<script>
+/* Header and sticky bar carry ONE install button; on an iPhone it points at the App Store.
+   Duplicating it there was worse: hiding Play without showing Apple left iPhone visitors on
+   the landing pages with no button at all, and two buttons overflowed the bar at 390px. The
+   badge rows in the hero and footer still show both stores on purpose. */
+(function(){var d=document.documentElement;
+ if(d.getAttribute("data-ios")!=="1"||d.getAttribute("data-plat")!=="ios")return;
+ document.addEventListener("DOMContentLoaded",function(){
+  document.querySelectorAll("header a.install,header a.btn-install,.installbar a.btn-install").forEach(function(a){
+   a.href="https://apps.apple.com/app/id6812500586";
+   var m=(a.getAttribute("onclick")||"").match(/installClick\(event,'([^']+)'\)/);
+   if(m&&m[1].slice(-4)!=="_ios")a.setAttribute("onclick","installClick(event,'"+m[1]+"_ios')");
+  });});})();
 </script>
 </head>
 <body>
@@ -221,7 +235,6 @@ footer .links{margin-left:auto;display:flex;flex-wrap:wrap;gap:10px 20px}@media 
       <a href="#faq">FAQ</a>
       <a href="privacy.html">Privacy</a>
       <a class="btn-install" href="https://play.google.com/store/apps/details?id=com.record.liferecorder&amp;referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dheader" onclick="installClick(event,'header')">Install free</a>
-    <a class="btn-install ios-only" href="https://apps.apple.com/app/id6812500586" onclick="installClick(event,'header_ios')">Install free on the App&nbsp;Store</a>
     </nav>
   </div>
 </header>
@@ -473,7 +486,6 @@ footer .links{margin-left:auto;display:flex;flex-wrap:wrap;gap:10px 20px}@media 
 <div class="installbar">
   <span class="ib-text"><b>Life Recorder</b>Free to download · Android</span>
   <a class="btn-install" href="https://play.google.com/store/apps/details?id=com.record.liferecorder&amp;referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dsticky" onclick="installClick(event,'sticky')">Install free</a>
-    <a class="btn-install ios-only" href="https://apps.apple.com/app/id6812500586" onclick="installClick(event,'sticky_ios')">Install free</a>
 </div>
 
 <script>

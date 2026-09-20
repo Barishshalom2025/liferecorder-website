@@ -67,7 +67,7 @@ article p{color:var(--dim);font-size:16.5px}
 .faq summary{cursor:pointer;font-weight:600;color:var(--text)}
 .faq details p{margin-top:8px}
 footer{border-top:1px solid rgba(255,255,255,.07);padding:22px 0 40px;color:var(--dim);font-size:14px}
-footer .wrap{display:flex;gap:18px;flex-wrap:wrap;max-width:1060px}[data-ios="0"] .ios-only{display:none!important}.badge-ios img{height:48px;display:block}.badge-ios{display:inline-flex;align-items:center;min-height:64px}.installbar .ios-only{display:none}[data-ios="1"][data-plat="ios"] .installbar .ios-only{display:inline-flex}[data-ios="1"][data-plat="ios"] .installbar .btn-install:not(.ios-only){display:none}
+footer .wrap{display:flex;gap:18px;flex-wrap:wrap;max-width:1060px}[data-ios="0"] .ios-only{display:none!important}.badge-ios img{height:48px;display:block}.badge-ios{display:inline-flex;align-items:center;min-height:64px}
 </style>
 <script type="application/ld+json">
 {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is a retroactive voice recorder?", "acceptedAnswer": {"@type": "Answer", "text": "A recorder that keeps a rolling buffer of recent audio so you can save a moment after it happened. Life Recorder keeps the last hour on your Android phone; one tap saves the last minutes backwards from now."}}, {"@type": "Question", "name": "Is it really recording all the time?", "acceptedAnswer": {"@type": "Answer", "text": "It listens while you keep it on, into a one-hour rolling buffer that continuously erases itself. Nothing becomes a permanent recording unless you explicitly save it, and nothing is ever uploaded."}}]}
@@ -80,6 +80,20 @@ footer .wrap{display:flex;gap:18px;flex-wrap:wrap;max-width:1060px}[data-ios="0"
 (function(){var u=navigator.userAgent||"";
  var ios=/iPad|iPhone|iPod/.test(u)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
  document.documentElement.setAttribute("data-plat", ios?"ios":(/Android/i.test(u)?"android":"desktop"));})();
+</script>
+<script>
+/* Header and sticky bar carry ONE install button; on an iPhone it points at the App Store.
+   Duplicating it there was worse: hiding Play without showing Apple left iPhone visitors on
+   the landing pages with no button at all, and two buttons overflowed the bar at 390px. The
+   badge rows in the hero and footer still show both stores on purpose. */
+(function(){var d=document.documentElement;
+ if(d.getAttribute("data-ios")!=="1"||d.getAttribute("data-plat")!=="ios")return;
+ document.addEventListener("DOMContentLoaded",function(){
+  document.querySelectorAll("header a.install,header a.btn-install,.installbar a.btn-install").forEach(function(a){
+   a.href="https://apps.apple.com/app/id6812500586";
+   var m=(a.getAttribute("onclick")||"").match(/installClick\(event,'([^']+)'\)/);
+   if(m&&m[1].slice(-4)!=="_ios")a.setAttribute("onclick","installClick(event,'"+m[1]+"_ios')");
+  });});})();
 </script>
 </head>
 <body>
