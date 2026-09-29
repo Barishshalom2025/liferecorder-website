@@ -41,6 +41,7 @@ Key facts:
 - [A voice recorder that works backwards](https://liferecorderapp.com/voice-recorder-that-works-backwards/)
 - [Save an idea after you said it](https://liferecorderapp.com/save-an-idea-after-you-said-it/)
 - [Baby's first words recorder](https://liferecorderapp.com/baby-first-words-recorder/)
+- [Always-on background voice recorder for Android](https://liferecorderapp.com/always-on-voice-recorder-android/): runs in the background all day, keeps only the last hour, does not record phone calls, how to stop Android killing it
 - [Record a lecture after it ended](https://liferecorderapp.com/record-lecture-after/)
 - [Privacy policy](https://liferecorderapp.com/privacy.html)
 - [Terms of use](https://liferecorderapp.com/terms.html)
