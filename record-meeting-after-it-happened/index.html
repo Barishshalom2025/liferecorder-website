@@ -65,7 +65,7 @@ article p{color:var(--dim);font-size:16.5px}
 .fact{margin:14px 0 4px;padding:14px 18px;border-left:3px solid var(--end);background:rgba(100,210,255,.06);border-radius:0 12px 12px 0;color:var(--text);font-size:16px}
 footer{border-top:1px solid rgba(255,255,255,.07);padding:22px 0 40px;color:var(--dim);font-size:14px}
 footer .wrap{display:flex;gap:18px;flex-wrap:wrap;max-width:1060px}[data-ios="0"] .ios-only{display:none!important}.badge-ios img{height:48px;display:block}.badge-ios{display:inline-flex;align-items:center;min-height:64px}
-/* One blue install button, for the visitor's own store; none next to the badges on desktop (Bar, 2026-10-07). */[data-plat="android"] :is(.cta-row,.cta .row) .btn-install.ios-only{display:none!important}[data-plat="ios"] :is(.cta-row,.cta .row) .btn-install:not(.ios-only){display:none!important}[data-plat="desktop"] :is(.cta-row,.cta .row):has(.badge) .btn-install{display:none!important}
+/* Badges only in the install rows: the header button and, on phones, the floating bar already are the button (Bar, 2026-10-07). */:is(.cta-row,.cta .row):has(.badge) .btn-install{display:none!important}@media (max-width:720px){:is(.cta-row,.cta .row) .btn-install{display:none!important}}
 </style>
 <script>
 /* Which store to put in front of this visitor. iPadOS 13+ reports itself as a Mac, so touch
