@@ -1,10 +1,10 @@
 # Life Recorder
 
-> Life Recorder is a free Android app that keeps a rolling one-hour audio buffer
+> Life Recorder is a free app for Android and iPhone that keeps a rolling one-hour audio buffer
 > on the phone; one tap saves the last minutes after the moment happened. Audio
 > never leaves the device.
 
-Life Recorder is a retroactive voice recorder for Android. Instead of starting
+Life Recorder is a retroactive voice recorder for Android and iPhone. Instead of starting
 to record when you press a button, it listens continuously into a self-erasing
 buffer of the last 60 minutes. When something worth keeping happens — a child's
 first word, a great idea, an important sentence in a meeting — the user taps
@@ -15,7 +15,7 @@ discarded.
 
 Key facts:
 
-- Platform: Android. Install: https://play.google.com/store/apps/details?id=com.record.liferecorder
+- Platforms: Android and iPhone. Install: https://play.google.com/store/apps/details?id=com.record.liferecorder (Android), https://apps.apple.com/app/id6812500586 (iPhone)
 - Price: free to download and use (listening, saving, trimming, sharing). PRO subscription adds on-device transcription, skip silence and Google Drive backup; a free first week; inviting a friend gives both a free month. No account required.
 - Privacy: the buffer, saved recordings and transcripts are stored only on the
   device, in the app's private storage (sandboxed from other apps, protected at
@@ -41,7 +41,7 @@ Key facts:
 - [A voice recorder that works backwards](https://liferecorderapp.com/voice-recorder-that-works-backwards/)
 - [Save an idea after you said it](https://liferecorderapp.com/save-an-idea-after-you-said-it/)
 - [Baby's first words recorder](https://liferecorderapp.com/baby-first-words-recorder/)
-- [Always-on background voice recorder for Android](https://liferecorderapp.com/always-on-voice-recorder-android/): runs in the background all day, keeps only the last hour, does not record phone calls, how to stop Android killing it
+- [Always-on background voice recorder for Android and iPhone](https://liferecorderapp.com/always-on-voice-recorder-android/): runs in the background all day, keeps only the last hour, does not record phone calls, how to stop Android killing it
 - [Record a lecture after it ended](https://liferecorderapp.com/record-lecture-after/)
 - [Privacy policy](https://liferecorderapp.com/privacy.html)
 - [Terms of use](https://liferecorderapp.com/terms.html)
