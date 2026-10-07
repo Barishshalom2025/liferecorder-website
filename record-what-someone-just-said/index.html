@@ -68,6 +68,7 @@ article p{color:var(--dim);font-size:16.5px}
 .faq details p{margin-top:8px}
 footer{border-top:1px solid rgba(255,255,255,.07);padding:22px 0 40px;color:var(--dim);font-size:14px}
 footer .wrap{display:flex;gap:18px;flex-wrap:wrap;max-width:1060px}[data-ios="0"] .ios-only{display:none!important}.badge-ios img{height:48px;display:block}.badge-ios{display:inline-flex;align-items:center;min-height:64px}
+/* One blue install button, for the visitor's own store; none next to the badges on desktop (Bar, 2026-10-07). */[data-plat="android"] :is(.cta-row,.cta .row) .btn-install.ios-only{display:none!important}[data-plat="ios"] :is(.cta-row,.cta .row) .btn-install:not(.ios-only){display:none!important}[data-plat="desktop"] :is(.cta-row,.cta .row):has(.badge) .btn-install{display:none!important}
 </style>
 <script type="application/ld+json">
 {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Can I record something after it was said?", "acceptedAnswer": {"@type": "Answer", "text": "Yes - if a rolling-buffer recorder was already listening. Life Recorder keeps the last hour of audio in a buffer on your phone; tapping save turns the last minutes into a recording, even though the moment already passed."}}, {"@type": "Question", "name": "Does it store everything I say all day?", "acceptedAnswer": {"@type": "Answer", "text": "No. Only the last hour exists, in a rolling buffer on the device, and it continuously overwrites itself. A permanent recording is created only when you explicitly tap save."}}]}
