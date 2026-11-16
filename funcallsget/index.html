@@ -20,7 +20,8 @@
   var android=/Android/i.test(ua);
   var ios=/iPad|iPhone|iPod/.test(ua)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
   var platform=android?"android":(ios?"ios":"desktop");
-  var target=android?PLAY:(ios?APPSTORE:null);
+  // ?page shows the card on a phone too (to look at it without being sent to the store).
+  var target=/[?&]page\b/.test(location.search)?null:(android?PLAY:(ios?APPSTORE:null));
   var ls=null; try{ls=localStorage;}catch(e){}
   function keep(k,v){if(ls){try{ls.setItem(k,v);}catch(e){}}}
   function read(k){if(ls){try{return ls.getItem(k);}catch(e){}}return null;}
