@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Funcalls — Get the app</title>
+<link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
+<!-- /funcallsget (Bar 2026-11-16): a short link from Life Recorder to Funcalls, Bar's other app.
+     No reward attached on either side (App Store 3.2.2(x)). Phones go straight to their store;
+     desktop gets both buttons. The click is counted in Life Recorder's GA4 web stream as its own
+     event (funcalls_click), NOT install_click, so Life Recorder's install numbers stay clean.
+     Play's referrer carries utm_source=liferecorderapp.com for Funcalls' own Play acquisition report. -->
+<script>
+(function(){
+  var C="funcallsget";
+  var PLAY="https://play.google.com/store/apps/details?id=com.fun.funcalls&referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3D"+C;
+  var APPSTORE="https://apps.apple.com/app/id775837930";
+  var ua=navigator.userAgent||"";
+  var android=/Android/i.test(ua);
+  var ios=/iPad|iPhone|iPod/.test(ua)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+  var platform=android?"android":(ios?"ios":"desktop");
+  var target=android?PLAY:(ios?APPSTORE:null);
+  var ls=null; try{ls=localStorage;}catch(e){}
+  function keep(k,v){if(ls){try{ls.setItem(k,v);}catch(e){}}}
+  function read(k){if(ls){try{return ls.getItem(k);}catch(e){}}return null;}
+  var queued=true;
+  try{
+    var cid=read("lr_cid")||(Math.floor(Math.random()*1e9)+"."+Math.floor(Date.now()/1000));
+    keep("lr_cid",cid);
+    var fresh=!read("lr_seen"); keep("lr_seen","1");
+    var base="https://www.google-analytics.com/g/collect?v=2&tid=G-M2YELX05EM"+
+      "&cid="+encodeURIComponent(cid)+"&sid="+Math.floor(Date.now()/1000)+"&sct=1&seg=1"+
+      "&ul="+encodeURIComponent((navigator.language||"en").toLowerCase())+
+      "&sr="+screen.width+"x"+screen.height+
+      "&dl="+encodeURIComponent(location.href)+"&dt="+encodeURIComponent(document.title)+
+      (document.referrer?"&dr="+encodeURIComponent(document.referrer):"")+
+      (fresh?"&_fv=1&_ss=1":"");
+    function hit(tail){
+      var u=base+"&_p="+Math.floor(Math.random()*1e9)+tail;
+      if(navigator.sendBeacon&&navigator.sendBeacon(u))return;
+      queued=false; new Image().src=u;
+    }
+    hit("&_s=1&en=page_view&_et=1");
+    hit("&_s=2&en=funcalls_click&ep.placement="+C+"&ep.platform="+platform);
+  }catch(e){}
+  if(target){ setTimeout(function(){location.replace(target);}, queued?0:400); return; }
+  document.addEventListener("DOMContentLoaded",function(){
+    var el=document.getElementById("card"); if(!el) return;
+    el.innerHTML='<img src="/assets/funcalls-logo.png" width="80" height="80" alt=""><h1>Funcalls</h1>'+
+      '<p class="tag">Phone calls with superpowers.</p>'+
+      '<p><a class="btn" href="'+APPSTORE+'">Download on the App Store</a></p>'+
+      '<p><a class="btn" href="'+PLAY+'">Get it on Google Play</a></p>'+
+      '<p class="hint">From the maker of <a href="/">Life Recorder</a>.</p>';
+  });
+})();
+</script>
+<noscript><meta http-equiv="refresh" content="0; url=https://play.google.com/store/apps/details?id=com.fun.funcalls"></noscript>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<style>body{background:linear-gradient(180deg,#1a2233,#121826);color:#f2f5fa;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;display:grid;place-items:center;min-height:100vh;margin:0;text-align:center;padding:24px}
+a{color:#64d2ff;text-decoration:none}
+#card img{border-radius:18px;margin-bottom:10px}
+#card h1{font-size:28px;margin:0 0 6px}
+#card .tag{color:#aab6c8;margin:0 0 22px}
+#card .hint{font-size:14px;color:#8e9bb0;max-width:22em;margin:6px auto 18px}
+#card .btn{display:inline-block;min-width:230px;padding:12px 22px;border-radius:26px;background:linear-gradient(90deg,#5e5ce6,#64d2ff);color:#fff;font-weight:600}</style>
+</head>
+<body><div id="card"><p>Taking you to the store…</p></div></body>
+</html>
