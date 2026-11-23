@@ -16,7 +16,7 @@ discarded.
 Key facts:
 
 - Platforms: Android and iPhone. Install: https://play.google.com/store/apps/details?id=com.record.liferecorder (Android), https://apps.apple.com/app/id6812500586 (iPhone)
-- Price: free to download and use (listening, saving, trimming, sharing). PRO subscription adds on-device transcription, skip silence and Google Drive backup; a free first week; inviting a friend gives both a free month. No account required.
+- Price: free to download and use (listening, saving, trimming, sharing). PRO subscription adds on-device transcription, skip silence and Google Drive backup; every new install gets its first 24 hours of PRO free; prices vary by country; inviting a friend gives both a free month. No account required.
 - Privacy: the buffer, saved recordings and transcripts are stored only on the
   device, in the app's private storage (sandboxed from other apps, protected at
   rest by the phone's built-in encryption). Nothing is uploaded to the developer; there are no servers that
@@ -48,3 +48,5 @@ Key facts:
 - [Terms of use](https://liferecorderapp.com/terms.html)
 
 Contact: liferecorderapp@gmail.com
+
+Translated home pages (same content as https://liferecorderapp.com/): https://liferecorderapp.com/ar/, https://liferecorderapp.com/cs/, https://liferecorderapp.com/da/, https://liferecorderapp.com/de/, https://liferecorderapp.com/el/, https://liferecorderapp.com/es/, https://liferecorderapp.com/fi/, https://liferecorderapp.com/fil/, https://liferecorderapp.com/fr/, https://liferecorderapp.com/he/, https://liferecorderapp.com/hi/, https://liferecorderapp.com/hu/, https://liferecorderapp.com/id/, https://liferecorderapp.com/it/, https://liferecorderapp.com/ja/, https://liferecorderapp.com/ko/, https://liferecorderapp.com/ms/, https://liferecorderapp.com/nb/, https://liferecorderapp.com/nl/, https://liferecorderapp.com/pl/, https://liferecorderapp.com/pt/, https://liferecorderapp.com/ro/, https://liferecorderapp.com/ru/, https://liferecorderapp.com/sv/, https://liferecorderapp.com/th/, https://liferecorderapp.com/tr/, https://liferecorderapp.com/uk/, https://liferecorderapp.com/vi/, https://liferecorderapp.com/zh/

@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="zh-Hans" data-ios="1">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Life Recorder — 能“回溯录音”的录音机，支持 Android 和 iPhone</title>
+<meta name="description" content="时刻过去之后再保存音频：Life Recorder 在你的手机上持续缓存最近一小时的声音。设备端转写、剪辑和分享。">
+<link rel="preload" as="image" href="/assets/i18n/zh-record.webp" fetchpriority="high">
+<link rel="preconnect" href="https://play.google.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://play.google.com">
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="dns-prefetch" href="https://i.ytimg.com">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M2YELX05EM"></script>
+<script>
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());gtag('config','G-M2YELX05EM');
+/* Same-tab navigation raced the async gtag.js load: install_click events sat
+   in the queue and died with the page - GA4 recorded zero clicks in 56 days
+   of live instrumentation. Hold navigation until the event is sent (or
+   400ms, whichever comes first), then go. */
+function installClick(e,placement){
+  var href=e.currentTarget.href;
+  e.preventDefault();
+  var went=false;
+  function go(){if(went)return;went=true;location.href=href;}
+  try{
+    gtag('event','install_click',
+      {placement:placement,transport_type:'beacon',event_callback:go,event_timeout:400});
+  }catch(err){}
+  setTimeout(go,400);
+}
+</script>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="canonical" href="https://liferecorderapp.com/zh/">
+<!-- i18n:start -->
+<link rel="alternate" hreflang="en" href="https://liferecorderapp.com/">
+<link rel="alternate" hreflang="ar" href="https://liferecorderapp.com/ar/">
+<link rel="alternate" hreflang="cs" href="https://liferecorderapp.com/cs/">
+<link rel="alternate" hreflang="da" href="https://liferecorderapp.com/da/">
+<link rel="alternate" hreflang="de" href="https://liferecorderapp.com/de/">
+<link rel="alternate" hreflang="el" href="https://liferecorderapp.com/el/">
+<link rel="alternate" hreflang="es" href="https://liferecorderapp.com/es/">
+<link rel="alternate" hreflang="fi" href="https://liferecorderapp.com/fi/">
+<link rel="alternate" hreflang="fil" href="https://liferecorderapp.com/fil/">
+<link rel="alternate" hreflang="fr" href="https://liferecorderapp.com/fr/">
+<link rel="alternate" hreflang="he" href="https://liferecorderapp.com/he/">
+<link rel="alternate" hreflang="hi" href="https://liferecorderapp.com/hi/">
+<link rel="alternate" hreflang="hu" href="https://liferecorderapp.com/hu/">
+<link rel="alternate" hreflang="id" href="https://liferecorderapp.com/id/">
+<link rel="alternate" hreflang="it" href="https://liferecorderapp.com/it/">
+<link rel="alternate" hreflang="ja" href="https://liferecorderapp.com/ja/">
+<link rel="alternate" hreflang="ko" href="https://liferecorderapp.com/ko/">
+<link rel="alternate" hreflang="ms" href="https://liferecorderapp.com/ms/">
+<link rel="alternate" hreflang="nb" href="https://liferecorderapp.com/nb/">
+<link rel="alternate" hreflang="nl" href="https://liferecorderapp.com/nl/">
+<link rel="alternate" hreflang="pl" href="https://liferecorderapp.com/pl/">
+<link rel="alternate" hreflang="pt-BR" href="https://liferecorderapp.com/pt/">
+<link rel="alternate" hreflang="ro" href="https://liferecorderapp.com/ro/">
+<link rel="alternate" hreflang="ru" href="https://liferecorderapp.com/ru/">
+<link rel="alternate" hreflang="sv" href="https://liferecorderapp.com/sv/">
+<link rel="alternate" hreflang="th" href="https://liferecorderapp.com/th/">
+<link rel="alternate" hreflang="tr" href="https://liferecorderapp.com/tr/">
+<link rel="alternate" hreflang="uk" href="https://liferecorderapp.com/uk/">
+<link rel="alternate" hreflang="vi" href="https://liferecorderapp.com/vi/">
+<link rel="alternate" hreflang="zh-Hans" href="https://liferecorderapp.com/zh/">
+<link rel="alternate" hreflang="x-default" href="https://liferecorderapp.com/">
+<!-- i18n:end -->
+<meta name="theme-color" content="#1a2233">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Life Recorder — 事情发生后，也能留住那一刻">
+<meta name="twitter:description" content="在时刻过去之后保存音频的录音机。设备端转写，支持约 100 种语言。从设计上保护隐私。">
+<meta name="twitter:image" content="https://liferecorderapp.com/assets/life-recorder-save-the-moment-after-it-happens.png">
+<meta property="og:title" content="Life Recorder — 事情发生后，也能留住那一刻">
+<meta property="og:description" content="让你在时刻过去之后保存音频的录音机。设备端转写、剪辑、分享 — 一切都留在你的手机上。">
+<meta property="og:image" content="https://liferecorderapp.com/assets/life-recorder-save-the-moment-after-it-happens.png">
+<meta property="og:url" content="https://liferecorderapp.com/zh/">
+<meta property="og:locale" content="zh_Hans">
+<meta property="og:type" content="website">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"MobileApplication","name":"Life Recorder",
+"operatingSystem":"ANDROID","applicationCategory":"UtilitiesApplication",
+"description":"Background voice recorder that keeps a rolling buffer of the last hour so you can save a moment after it happened. On-device transcription in ~100 languages.",
+"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+"installUrl":"https://play.google.com/store/apps/details?id=com.record.liferecorder"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"VideoObject","name":"Life Recorder — the retroactive voice recorder for Android and iPhone",
+"description":"Save audio AFTER it happens: Life Recorder keeps a rolling buffer of the last hour so one tap saves the moment that just passed.",
+"thumbnailUrl":["https://i.ytimg.com/vi/seejFBA3VU8/maxresdefault.jpg","https://i.ytimg.com/vi/seejFBA3VU8/hqdefault.jpg"],
+"uploadDate":"2026-08-01","duration":"PT26S",
+"embedUrl":"https://www.youtube-nocookie.com/embed/seejFBA3VU8",
+"contentUrl":"https://www.youtube.com/watch?v=seejFBA3VU8"}
+</script>
+<style>
+:root{
+  --bg:#1a2233; --bg2:#121826; --card:#212d40;
+  --start:#5e5ce6; --end:#64d2ff; --text:#f2f5fa; --dim:#aab6c8;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,"Noto Sans","Noto Sans Arabic","Noto Sans Hebrew","Noto Sans Devanagari","Noto Sans Thai","Hiragino Sans","Noto Sans JP","Apple SD Gothic Neo","Noto Sans KR","PingFang SC","Noto Sans SC",sans-serif;
+  line-height:1.6;overflow-x:clip}
+a{color:var(--end);text-decoration:none}
+.wrap{max-width:1060px;margin:0 auto;padding:0 24px}
+.grad{background:linear-gradient(90deg,var(--start),var(--end));
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+header{padding:16px 0;position:sticky;top:0;z-index:20;background:rgba(26,34,51,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.07)}
+header .wrap{display:flex;align-items:center;gap:12px}
+header img{width:36px;height:36px;border-radius:9px}
+header .brand{font-weight:700;font-size:19px}
+header nav{margin-left:auto;display:flex;align-items:center;gap:22px;font-size:15px}
+header nav a{color:var(--dim)}
+header nav a:hover{color:var(--text)}
+.btn-install{display:inline-flex;align-items:center;justify-content:center;
+  background:linear-gradient(90deg,var(--start),var(--end));color:#0d1220;font-weight:700;
+  border-radius:999px;padding:11px 22px;font-size:16px;line-height:1.2;white-space:nowrap;
+  box-shadow:0 8px 24px rgba(94,92,230,.32)}
+.btn-install:hover{filter:brightness(1.08)}
+header nav a.btn-install{color:#0d1220;padding:9px 18px;font-size:15px}
+header nav a.btn-install:hover{color:#0d1220}
+.hero{position:relative;padding:56px 0 40px;text-align:left}
+.hero .wrap{display:flex;align-items:center;gap:48px;flex-wrap:wrap}
+.hero-copy{flex:1 1 420px;position:relative;z-index:1}
+.hero h1{font-size:clamp(34px,5vw,54px);line-height:1.12;font-weight:800;letter-spacing:-.5px}
+.hero p.sub{margin:18px 0 30px;font-size:19px;color:var(--dim);max-width:34em}
+.hero-shot{flex:0 1 320px;margin:0 auto}
+.hero-shot img{width:100%;height:auto;max-width:320px;border-radius:22px;
+  box-shadow:0 26px 70px rgba(0,0,0,.55)}
+.badge{display:inline-flex;align-items:center;min-height:64px}
+.badge img{height:64px;display:block}
+.cta-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.cta .cta-row{justify-content:center}
+.cta .trust{text-align:center}
+.trust{margin-top:18px;color:var(--dim);font-size:14.5px;line-height:1.7}
+.trust b{color:var(--text);font-weight:600}
+.wave{position:absolute;left:0;right:0;bottom:-6px;z-index:0;opacity:.22;pointer-events:none;width:100%;height:110px}
+.tag{display:inline-block;font-size:13px;letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--end);margin-bottom:14px;font-weight:600}
+section{padding:64px 0;position:relative;z-index:1;scroll-margin-top:96px}
+h2{font-size:clamp(26px,3.4vw,36px);font-weight:800;margin-bottom:14px}
+.lead{color:var(--dim);font-size:17px;max-width:44em;margin-bottom:38px}
+.fact{margin:-20px 0 38px;padding:14px 18px;border-left:3px solid var(--end);background:rgba(100,210,255,.06);border-radius:0 12px 12px 0;color:var(--text);font-size:16px;max-width:52em}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px}
+.step{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.14);
+  border-radius:16px;padding:26px}
+.step .n{color:var(--end)}
+.step h3{font-size:19px;margin-bottom:8px}
+.step p{color:var(--dim);font-size:15px}
+.video-frame{position:relative;padding-top:56.25%;border-radius:22px;overflow:hidden;
+  box-shadow:0 26px 70px rgba(0,0,0,.5);border:1.5px solid rgba(255,255,255,.14);max-width:960px;margin:0 auto}
+.video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+/* Click-to-play facade: the poster + play button stand in for the YouTube
+   iframe until tapped. Lighter page, and the play tap is OUR click - the
+   video_start event no longer depends on the iframe API wiring up. */
+.video-facade{position:absolute;inset:0;width:100%;height:100%;display:block;
+  border:0;padding:0;cursor:pointer;background:#0d1220}
+.video-facade img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  transition:transform .35s ease,opacity .35s ease;opacity:.92}
+.video-facade:hover img{transform:scale(1.03);opacity:1}
+.video-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:84px;height:84px;border-radius:50%;
+  background:linear-gradient(90deg,var(--start),var(--end));
+  box-shadow:0 12px 40px rgba(94,92,230,.55);display:flex;align-items:center;justify-content:center;
+  transition:transform .25s ease}
+.video-facade:hover .video-play{transform:translate(-50%,-50%) scale(1.08)}
+.video-play svg{width:30px;height:30px;margin-left:5px;fill:#0d1220}
+.video-hint{position:absolute;left:0;right:0;bottom:0;padding:34px 16px 14px;text-align:center;
+  color:#fff;font-size:15px;font-weight:600;
+  background:linear-gradient(180deg,transparent,rgba(13,18,32,.85))}
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
+.feature{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.14);
+  border-radius:16px;padding:26px}
+.feature h3{font-size:18px;margin-bottom:8px}
+.feature .emoji{font-size:26px;display:block;margin-bottom:12px}
+.feature p{color:var(--dim);font-size:15px}
+.shots{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:26px;
+  max-width:860px;margin:0 auto}
+.shots img{width:100%;height:auto;border-radius:18px;box-shadow:0 18px 50px rgba(0,0,0,.45)}
+.privacy-band{background:rgba(94,92,230,.10);border:1.5px solid rgba(100,210,255,.25);
+  border-radius:22px;padding:44px;text-align:center}
+.privacy-band p{max-width:46em;margin:0 auto;color:var(--dim);font-size:17px}
+.faq details{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.14);
+  border-radius:14px;padding:18px 22px;margin-bottom:12px}
+.faq summary{cursor:pointer;font-weight:600;font-size:16px}
+.faq details p{margin-top:10px;color:var(--dim);font-size:15px}
+.uc{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.uc a{display:block;background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.14);
+  border-radius:16px;padding:22px;color:var(--text);transition:border-color .2s,transform .2s}
+.uc a:hover{border-color:rgba(100,210,255,.5);transform:translateY(-2px)}
+.uc .emoji{font-size:24px;display:block;margin-bottom:10px}
+.uc h3{font-size:17px;margin-bottom:6px}
+.uc p{color:var(--dim);font-size:14px}
+.uc .more{display:inline-block;margin-top:10px;color:var(--end);font-size:13.5px;font-weight:600}
+.reviews{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.review{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.14);
+  border-radius:16px;padding:24px;display:flex;flex-direction:column}
+.review .stars{color:#f5c451;font-size:17px;letter-spacing:2px;margin-bottom:12px}
+.review blockquote{font-size:16.5px;line-height:1.55;color:var(--text);flex:1}
+.review .who{margin-top:14px;color:var(--dim)!important;font-size:13px}
+.review.rating{align-items:center;justify-content:center;text-align:center}
+.review.rating .big{font-size:44px;font-weight:800;line-height:1.1}
+.review.rating .stars{font-size:22px;margin:8px 0 4px}
+.review.rating p{color:var(--dim);font-size:14px}
+.cta{text-align:center;padding:80px 0}
+footer{border-top:1px solid rgba(255,255,255,.1);padding:34px 0;color:var(--dim);font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:18px;align-items:center}
+footer .links{margin-left:auto;display:flex;flex-wrap:wrap;gap:10px 20px}@media (max-width:720px){footer .links{margin-left:0}}
+/* Sticky install bar — mobile only */
+.installbar{display:none}
+@media (max-width:720px){
+  .hero .wrap{gap:28px}
+  .privacy-band{padding:30px 20px}
+  header .wrap{flex-wrap:wrap;justify-content:center;row-gap:10px}
+  header nav{margin-left:0;width:100%;justify-content:center;gap:14px;font-size:14px;flex-wrap:wrap}
+  .hero{padding-top:34px}
+  .wave{height:70px;opacity:.18}
+  /* the sticky bottom bar already carries the CTA on phones */
+  header nav a.btn-install{display:none}
+  body{padding-bottom:74px}
+  .installbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:30;
+    align-items:center;gap:12px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+    background:rgba(18,24,38,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border-top:1px solid rgba(255,255,255,.12)}
+  .installbar .ib-text{font-size:13.5px;color:var(--dim);line-height:1.3}
+  .installbar .ib-text b{display:block;color:var(--text);font-size:15px;font-weight:700}
+  .installbar .btn-install{margin-left:auto;padding:10px 18px;font-size:15px}
+}[data-ios="0"] .ios-only{display:none!important}.badge-ios img{height:48px;display:block}.badge-ios{display:inline-flex;align-items:center;min-height:64px}
+/* Badges only in the install rows: the header button and, on phones, the floating bar already are the button (Bar, 2026-10-07). */:is(.cta-row,.cta .row):has(.badge) .btn-install{display:none!important}@media (max-width:720px){:is(.cta-row,.cta .row) .btn-install{display:none!important}}
+.langs{margin-top:14px;width:100%}.langs summary{cursor:pointer;color:var(--dim);font-size:14px;list-style:none}.langs summary::-webkit-details-marker{display:none}.langs-list{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;font-size:14px}.langs-list a[aria-current]{color:var(--text);font-weight:600}
+</style>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "它怎么能录下已经发生的事？", "acceptedAnswer": {"@type": "Answer", "text": "聆听时，Life Recorder 会持续缓存最近一小时的音频。点击保存时，缓存中最后几分钟就会变成一段录音。超过一小时的内容会被持续、永久地删除。"}}, {"@type": "Question", "name": "我的音频会被上传到哪里吗？", "acceptedAnswer": {"@type": "Answer", "text": "绝不会传给我们 — 我们没有接收音频的服务器。缓存和你保存的录音都在你的手机上，转写也完全在设备上进行。只有你自己分享，或开启可选的 Google 云端硬盘备份时，音频才会离开手机。"}}, {"@type": "Question", "name": "其他应用或黑客能访问这些录音吗？", "acceptedAnswer": {"@type": "Answer", "text": "缓存和录音存放在应用的私有存储中，Android 会将其与所有其他应用隔离，手机内置的加密也会保护它们。没有任何内容被上传 — 也就没有服务器可被入侵。只有你自己分享时，音频才会离开手机。"}}, {"@type": "Question", "name": "会很耗电吗？", "acceptedAnswer": {"@type": "Answer", "text": "它的设计非常省电。你还可以设置录音时间表（只在选定时段聆听），并开启跳过静音，让安静的片段根本不被存储。"}}, {"@type": "Question", "name": "它能转写哪些语言？", "acceptedAnswer": {"@type": "Answer", "text": "约 100 种口语，自动识别。语音模型（约 380&nbsp;MB）只需通过 Wi-Fi 下载一次；之后转写可离线进行。自动转写可能会有错误。"}}, {"@type": "Question", "name": "哪些免费，哪些属于 PRO？", "acceptedAnswer": {"@type": "Answer", "text": "聆听、保存、剪辑和分享都免费，无需账号。PRO 增加设备端转写、跳过静音和备份到你自己的 Google 云端硬盘：在美国为每月 $2.49 或每年 $14.99（价格因国家/地区而异），每次新安装都可免费使用 PRO 的头 24 小时。邀请一位朋友，你们俩都能免费获得一个月 PRO。"}}, {"@type": "Question", "name": "录音合法吗？", "acceptedAnswer": {"@type": "Answer", "text": "各国法律不同。在某些地方，录音需要获得所有被录音者的同意 — 请务必遵守当地法律。"}}]}
+</script>
+<script>
+/* Which store to put in front of this visitor. iPadOS 13+ reports itself as a Mac, so touch
+   points are the only tell - the same test the /share redirect pages use. The bar at the
+   bottom has room for ONE button on a phone, and offering an Android button to an iPhone is
+   worse than offering nothing. */
+(function(){var u=navigator.userAgent||"";
+ var ios=/iPad|iPhone|iPod/.test(u)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+ document.documentElement.setAttribute("data-plat", ios?"ios":(/Android/i.test(u)?"android":"desktop"));})();
+</script>
+<script>
+/* Header and sticky bar carry ONE install button; on an iPhone it points at the App Store.
+   Duplicating it there was worse: hiding Play without showing Apple left iPhone visitors on
+   the landing pages with no button at all, and two buttons overflowed the bar at 390px. The
+   badge rows in the hero and footer still show both stores on purpose. */
+(function(){var d=document.documentElement;
+ if(d.getAttribute("data-ios")!=="1"||d.getAttribute("data-plat")!=="ios")return;
+ document.addEventListener("DOMContentLoaded",function(){
+  document.querySelectorAll("header a.install,header a.btn-install,.installbar a.btn-install").forEach(function(a){
+   a.href="https://apps.apple.com/app/id6812500586";
+   var m=(a.getAttribute("onclick")||"").match(/installClick\(event,'([^']+)'\)/);
+   if(m&&m[1].indexOf("_ios")<0)a.setAttribute("onclick","installClick(event,'"+m[1]+"_ios')");
+  });});})();
+</script>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <img src="/assets/icon-192.png" alt="Life Recorder 图标">
+    <span class="brand">Life&nbsp;Recorder</span>
+    <nav>
+      <a href="#how">工作原理</a>
+      <a href="#features">功能</a>
+      <a href="#faq">常见问题</a>
+      <a href="/privacy.html">隐私</a>
+      <a class="btn-install" href="https://play.google.com/store/apps/details?id=com.record.liferecorder&amp;referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dheader_zh" onclick="installClick(event,'header_zh')">免费安装</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="tag">Android 和 iPhone · 免费</span>
+      <h1>能“回溯录音”的录音机，支持 Android 和 iPhone&nbsp;—<br><span class="grad">事情发生后，也能留住那一刻</span></h1>
+      <p class="sub">Life Recorder 静静记住你身边最近一小时的声音。孩子说的一句趣话、突然冒出的灵感、对话中的一个细节 — 即使那一刻已经过去，点一下就能保存。</p>
+      <div class="cta-row">
+        <a class="badge" href="https://play.google.com/store/apps/details?id=com.record.liferecorder&amp;referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dhero_zh" onclick="installClick(event,'hero_zh')">
+          <img alt="在 Google Play 上获取" src="https://play.google.com/intl/en_us/badges/static/images/badges/zh-cn_badge_web_generic.png" width="180" height="64">
+        </a>
+        <a class="badge badge-ios ios-only" href="https://apps.apple.com/app/id6812500586" onclick="installClick(event,'hero_zh_ios')"><img alt="在 App Store 下载" src="/assets/download-on-the-app-store.svg" width="143" height="48"></a>
+        <a class="btn-install" href="https://play.google.com/store/apps/details?id=com.record.liferecorder&amp;referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dhero_zh" onclick="installClick(event,'hero_zh')">在 Google Play 免费安装</a>
+    <a class="btn-install ios-only" href="https://apps.apple.com/app/id6812500586" onclick="installClick(event,'hero_zh_ios')">在 App&nbsp;Store 免费安装</a>
+      </div>
+      <p class="trust">免费下载 · 无需账号 · <b>录音绝不会上传给我们</b> · 离线录音和转写</p>
+    </div>
+    <div class="hero-shot">
+      <img src="/assets/i18n/zh-record.webp" alt="Life Recorder 录音界面 — 在时刻过去后保存最后几分钟的音频" width="640" height="1138" fetchpriority="high">
+    </div>
+  </div>
+  <svg class="wave" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true">
+    <defs><linearGradient id="g" x1="0" x2="1">
+      <stop offset="0" stop-color="#5e5ce6"/><stop offset="1" stop-color="#64d2ff"/>
+    </linearGradient></defs>
+    <path d="M0,110 C180,30 360,190 540,110 C720,30 900,190 1080,110 C1260,30 1380,160 1440,110"
+      fill="none" stroke="url(#g)" stroke-width="3" opacity=".9"/>
+    <path d="M0,110 C240,190 480,30 720,110 C960,190 1200,30 1440,110"
+      fill="none" stroke="url(#g)" stroke-width="2" opacity=".45"/>
+  </svg>
+</div>
+
+<section id="how">
+  <div class="wrap">
+    <h2><span class="grad">工作原理</span></h2>
+    <p class="lead">无需计划，也不用在恰好的时刻按下录音。它早已在录。</p>
+    <p class="fact">Life Recorder 是一款适用于 Android 和 iPhone 的免费应用，在手机上持续保留一小时的滚动音频缓存；时刻过去之后，点一下就能保存最后几分钟。音频永远不会离开设备。</p>
+    <div class="steps">
+      <div class="step"><h3><span class="n">1.</span> 开启一次就好</h3>
+        <p>点击“开始”，Life Recorder 就会在后台聆听，持续缓存刚刚过去的声音。旧的音频会不断被删除 — 什么都不会堆积。</p></div>
+      <div class="step"><h3><span class="n">2.</span> 生活照常进行</h3>
+        <p>有值得留下的内容？保存最近 5 分钟、10 分钟或任意分钟数 — 可在应用内、通知栏或主屏幕小组件中操作。</p></div>
+      <div class="step"><h3><span class="n">3.</span> 只留下那一刻</h3>
+        <p>带波形播放，精确到秒剪辑，分享到任何地方 — 或者点一下就转成文字。</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="video">
+  <div class="wrap">
+    <h2>看看它<span class="grad">如何工作</span></h2>
+    <p class="lead">只需 26 秒。</p>
+    <div class="video-frame">
+      <button id="video-facade" class="video-facade" type="button" aria-label="播放 26 秒的 Life Recorder 演示视频">
+        <img src="https://i.ytimg.com/vi/seejFBA3VU8/maxresdefault.jpg"
+          onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/seejFBA3VU8/hqdefault.jpg'"
+          alt="Life Recorder 演示视频 — 在事情发生后保存那一刻" loading="lazy" width="1280" height="720">
+        <span class="video-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+        <span class="video-hint">观看 26 秒演示</span>
+      </button>
+    </div>
+    <div class="cta-row" style="justify-content:center;margin-top:26px">
+      <a class="btn-install" href="https://play.google.com/store/apps/details?id=com.record.liferecorder&amp;referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dvideo_zh" onclick="installClick(event,'video_zh')">在 Google Play 免费安装</a>
+    <a class="btn-install ios-only" href="https://apps.apple.com/app/id6812500586" onclick="installClick(event,'video_zh_ios')">在 App&nbsp;Store 免费安装</a>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="wrap">
+    <h2>功能</h2>
+    <p class="lead">小巧的应用，明确的用途 — 外加几项超能力。</p>
+    <div class="features">
+      <div class="feature"><span class="emoji">⏪</span><h3>回溯保存</h3>
+        <p>核心就是：在事情发生之后再保存音频。最多可回溯整整一小时，精确到分钟。</p></div>
+      <div class="feature"><span class="emoji">📝</span><h3>设备端转写</h3>
+        <p>把任何录音转成约 100 种语言的文字。语音模型完全在你的手机上运行 — 音频从不离开手机。</p></div>
+      <div class="feature"><span class="emoji">✂️</span><h3>实时波形剪辑</h3>
+        <p>看见声音，拖动手柄，只留下真正重要的那几秒。</p></div>
+      <div class="feature"><span class="emoji">🔋</span><h3>省电</h3>
+        <p>录音时间表和跳过静音模式，让缓存够长，耗电够少。</p></div>
+      <div class="feature"><span class="emoji">🌍</span><h3>说你的语言</h3>
+        <p>应用支持 30 种语言，并完整支持从右到左书写的语言。</p></div>
+      <div class="feature"><span class="emoji">🔒</span><h3>从设计上保护隐私</h3>
+        <p>录音绝不会上传给我们。只有你主动保存的内容会被保留 — 其余的会随时间自动删除。</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="use-cases">
+  <div class="wrap">
+    <h2>专为<span class="grad">这样的时刻</span>而生</h2>
+    <p class="lead">同样的一小时滚动缓存，对准人们真正会错过的时刻。</p>
+    <div class="uc">
+      <a href="/record-what-someone-just-said/"><span class="emoji">🗣️</span><h3>对方刚刚说过</h3>
+        <p>一个号码、一个地址、一句承诺的原话 — 说完之后再保存。</p><span class="more">了解原理 →</span></a>
+      <a href="/record-meeting-after-it-happened/"><span class="emoji">📋</span><h3>会议中的关键时刻</h3>
+        <p>决定已经做出，却没人在录音。事后保存 — 再把会议纪要转成文字。</p><span class="more">了解原理 →</span></a>
+      <a href="/baby-first-words-recorder/"><span class="emoji">👶</span><h3>第一句话</h3>
+        <p>孩子从不会为镜头重演那一刻。现在也不需要了。</p><span class="more">了解原理 →</span></a>
+      <a href="/record-lecture-after/"><span class="emoji">🎓</span><h3>走神错过的课</h3>
+        <p>重点部分走神了？保存课堂的最后半小时，再听一遍。</p><span class="more">了解原理 →</span></a>
+      <a href="/save-an-idea-after-you-said-it/"><span class="emoji">💡</span><h3>说出口的灵感</h3>
+        <p>最好的表达往往出现在对话中途。留下你真正说出的那个版本。</p><span class="more">了解原理 →</span></a>
+      <a href="/voice-recorder-that-works-backwards/"><span class="emoji">⏪</span><h3>倒着工作的录音机</h3>
+        <p>按的是“保存”，不是“录音” — 录音从过去开始。</p><span class="more">了解原理 →</span></a>
+      <a href="/always-on-voice-recorder-android/"><span class="emoji">🔴</span><h3>始终开启，永不存满</h3>
+        <p>一款整天在后台聆听的录音机，只保留你可能还需要的那一小时。</p><span class="more">了解原理 →</span></a>
+      <a href="/record-the-last-hour-of-audio/"><span class="emoji">🕐</span><h3>记住最近一小时</h3>
+        <p>滚动缓存如何在你的手机上保留一小时 — 其他任何地方都没有。</p><span class="more">了解原理 →</span></a>
+    </div>
+  </div>
+</section>
+
+<section id="screenshots">
+  <div class="wrap">
+    <h2><span class="grad">应用内一览</span></h2>
+    <p class="lead">后台录音，带波形回放，精确到秒剪辑。</p>
+    <div class="shots">
+      <img src="/assets/i18n/zh-record.webp" alt="后台录音界面：一键保存最近 5 或 10 分钟" width="640" height="1138" loading="lazy">
+      <img src="/assets/i18n/zh-playing.webp" alt="带波形播放器和设备端转写的已保存录音" width="640" height="1138" loading="lazy">
+      <img src="/assets/i18n/zh-trim.webp" alt="带实时波形预览的音频剪辑" width="640" height="1138" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="privacy-band">
+      <h2>隐私<span class="grad">第一</span></h2>
+      <p>你的录音绝不会上传给我们 — 我们没有接收音频的服务器，也没有任何途径访问它。转写在本地完成，只有你主动保存的音频才会保留。无需创建账号。除非<em>你</em>开启备份到自己的 Google 云端硬盘，或自己分享录音，否则什么都不会上传到云端。（应用会通过 Firebase 发送匿名的使用和崩溃数据 — 从不发送音频。详情请见<a href="/privacy.html">隐私政策</a>（英文）。）</p>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <h2>常见问题</h2>
+    <div class="faq">
+      <details><summary>它怎么能录下已经发生的事？</summary>
+        <p>聆听时，Life Recorder 会持续缓存最近一小时的音频。点击保存时，缓存中最后几分钟就会变成一段录音。超过一小时的内容会被持续、永久地删除。</p></details>
+      <details><summary>我的音频会被上传到哪里吗？</summary>
+        <p>绝不会传给我们 — 我们没有接收音频的服务器。缓存和你保存的录音都在你的手机上，转写也完全在设备上进行。只有你自己分享，或开启可选的 Google 云端硬盘备份时，音频才会离开手机。</p></details>
+      <details><summary>其他应用或黑客能访问这些录音吗？</summary>
+        <p>缓存和录音存放在应用的私有存储中，Android 会将其与所有其他应用隔离，手机内置的加密也会保护它们。没有任何内容被上传 — 也就没有服务器可被入侵。只有你自己分享时，音频才会离开手机。</p></details>
+      <details><summary>会很耗电吗？</summary>
+        <p>它的设计非常省电。你还可以设置录音时间表（只在选定时段聆听），并开启跳过静音，让安静的片段根本不被存储。</p></details>
+      <details><summary>它能转写哪些语言？</summary>
+        <p>约 100 种口语，自动识别。语音模型（约 380&nbsp;MB）只需通过 Wi-Fi 下载一次；之后转写可离线进行。自动转写可能会有错误。</p></details>
+      <details><summary>哪些免费，哪些属于 PRO？</summary>
+        <p>聆听、保存、剪辑和分享都免费，无需账号。PRO 增加设备端转写、跳过静音和备份到你自己的 Google 云端硬盘：在美国为每月 $2.49 或每年 $14.99（价格因国家/地区而异），每次新安装都可免费使用 PRO 的头 24 小时。邀请一位朋友，你们俩都能免费获得一个月 PRO。</p>
+      </details>
+      <details><summary>录音合法吗？</summary>
+        <p>各国法律不同。在某些地方，录音需要获得所有被录音者的同意 — 请务必遵守当地法律。</p></details>
+    </div>
+  </div>
+</section>
+
+<section id="reviews">
+  <div class="wrap">
+    <h2>用户<span class="grad">怎么说</span></h2>
+    <p class="lead">来自 Google Play 的真实评价（保留原文）。</p>
+    <div class="reviews">
+      <div class="review rating">
+        <div class="big">4.4</div>
+        <div class="stars">★★★★★</div>
+        <p>Google Play 平均评分</p>
+      </div>
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <blockquote>“You don't press record. You press save. What I needed, so I can recall text the way I said it”</blockquote>
+        <p class="who">Google Play 评价 · 2026 年 8 月</p>
+      </div>
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <blockquote>“This App is very useful and easy to use. Especially the design is clear and simple, it is an art not only software.”</blockquote>
+        <p class="who">Google Play 评价 · 2026 年 9 月</p>
+      </div>
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <blockquote>“I use it alot and it works wonderfully 10/10 would 100% recommend”</blockquote>
+        <p class="who">Google Play 评价 · 2026 年 8 月</p>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:22px"><a href="https://play.google.com/store/apps/details?id=com.record.liferecorder&amp;referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dreviews_zh" onclick="installClick(event,'reviews_zh')">在 Google Play 上查看全部评价 →</a></p>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <h2>不再错过任何时刻</h2>
+    <p class="lead" style="margin:14px auto 26px;max-width:34em;text-align:center">
+      免费使用：聆听、保存、剪辑和分享。PRO 增加设备端转写、跳过静音和 Google 云端硬盘备份；每次新安装都可免费使用 PRO 的头 24 小时。邀请一位朋友，你们俩都能获得一个月 PRO。</p>
+    <div class="cta-row">
+      <a class="badge" href="https://play.google.com/store/apps/details?id=com.record.liferecorder&amp;referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dfooter_zh" onclick="installClick(event,'footer_zh')">
+        <img alt="在 Google Play 上获取" src="https://play.google.com/intl/en_us/badges/static/images/badges/zh-cn_badge_web_generic.png" width="180" height="64">
+      </a>
+        <a class="badge badge-ios ios-only" href="https://apps.apple.com/app/id6812500586" onclick="installClick(event,'footer_zh_ios')"><img alt="在 App Store 下载" src="/assets/download-on-the-app-store.svg" width="143" height="48"></a>
+      <a class="btn-install" href="https://play.google.com/store/apps/details?id=com.record.liferecorder&amp;referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dfooter_zh" onclick="installClick(event,'footer_zh')">在 Google Play 免费安装</a>
+    <a class="btn-install ios-only" href="https://apps.apple.com/app/id6812500586" onclick="installClick(event,'footer_zh_ios')">在 App&nbsp;Store 免费安装</a>
+    </div>
+    <p class="trust">免费下载 · 无需账号 · <b>录音绝不会上传给我们</b> · 离线录音和转写</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Life Recorder</span>
+    <div class="links">
+      <a href="mailto:liferecorderapp@gmail.com">支持</a>
+      <a href="https://www.youtube.com/@liferecorderapp" rel="noopener">YouTube</a>
+      <a href="/record-meeting-after-it-happened/">用于会议</a>
+      <a href="/baby-first-words-recorder/">用于家庭时刻</a>
+      <a href="/record-lecture-after/">用于课堂</a>
+      <a href="/record-what-someone-just-said/">录下刚才说的话</a>
+      <a href="/record-the-last-hour-of-audio/">最近一小时</a>
+      <a href="/always-on-voice-recorder-android/">始终开启的录音机（Android）</a>
+      <a href="/always-on-voice-recorder-iphone/">始终开启的录音机（iPhone）</a>
+      <a href="/voice-recorder-that-works-backwards/">倒着工作</a>
+      <a href="/save-an-idea-after-you-said-it/">用于灵感</a>
+      <a href="/privacy.html">隐私政策</a>
+      <a href="/terms.html">使用条款</a>
+    </div>
+<!-- i18n-switch:start -->
+<details class="langs"><summary>🌐 简体中文</summary><div class="langs-list"><a href="/" hreflang="en" lang="en">English</a><a href="/ar/" hreflang="ar" lang="ar">العربية</a><a href="/cs/" hreflang="cs" lang="cs">Čeština</a><a href="/da/" hreflang="da" lang="da">Dansk</a><a href="/de/" hreflang="de" lang="de">Deutsch</a><a href="/el/" hreflang="el" lang="el">Ελληνικά</a><a href="/es/" hreflang="es" lang="es">Español</a><a href="/fi/" hreflang="fi" lang="fi">Suomi</a><a href="/fil/" hreflang="fil" lang="fil">Filipino</a><a href="/fr/" hreflang="fr" lang="fr">Français</a><a href="/he/" hreflang="he" lang="he">עברית</a><a href="/hi/" hreflang="hi" lang="hi">हिन्दी</a><a href="/hu/" hreflang="hu" lang="hu">Magyar</a><a href="/id/" hreflang="id" lang="id">Bahasa Indonesia</a><a href="/it/" hreflang="it" lang="it">Italiano</a><a href="/ja/" hreflang="ja" lang="ja">日本語</a><a href="/ko/" hreflang="ko" lang="ko">한국어</a><a href="/ms/" hreflang="ms" lang="ms">Bahasa Melayu</a><a href="/nb/" hreflang="nb" lang="nb">Norsk</a><a href="/nl/" hreflang="nl" lang="nl">Nederlands</a><a href="/pl/" hreflang="pl" lang="pl">Polski</a><a href="/pt/" hreflang="pt-BR" lang="pt-BR">Português</a><a href="/ro/" hreflang="ro" lang="ro">Română</a><a href="/ru/" hreflang="ru" lang="ru">Русский</a><a href="/sv/" hreflang="sv" lang="sv">Svenska</a><a href="/th/" hreflang="th" lang="th">ไทย</a><a href="/tr/" hreflang="tr" lang="tr">Türkçe</a><a href="/uk/" hreflang="uk" lang="uk">Українська</a><a href="/vi/" hreflang="vi" lang="vi">Tiếng Việt</a><a href="/zh/" hreflang="zh-Hans" lang="zh-Hans" aria-current="page">简体中文</a></div></details>
+<!-- i18n-switch:end -->
+  </div>
+</footer>
+
+<div class="installbar">
+  <span class="ib-text"><b>Life Recorder</b>免费 · Android 和 iPhone</span>
+  <a class="btn-install" href="https://play.google.com/store/apps/details?id=com.record.liferecorder&amp;referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dsticky_zh" onclick="installClick(event,'sticky_zh')">免费安装</a>
+</div>
+
+<script>
+/* Measurement layer - custom because Enhanced Measurement toggles live in
+   the GA4 console, not in code, and this page must not depend on them.
+   Everything fires at most once per page load. */
+(function(){
+  // Scroll depth: 25/50/75/90 percent.
+  var marks=[25,50,75,90],sent={};
+  function onScroll(){
+    var h=document.documentElement,max=h.scrollHeight-window.innerHeight;
+    if(max<=0)return;
+    var pct=Math.round(window.scrollY/max*100);
+    marks.forEach(function(m){
+      if(pct>=m&&!sent[m]){sent[m]=1;gtag('event','scroll_depth',{percent:m});}
+    });
+    if(sent[90])window.removeEventListener('scroll',onScroll);
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+
+  // Section visibility: which parts of the page people actually reach.
+  if('IntersectionObserver'in window){
+    var seen={};
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting&&!seen[en.target.id]){
+          seen[en.target.id]=1;
+          gtag('event','section_view',{section:en.target.id});
+          io.unobserve(en.target);
+        }
+      });
+    },{threshold:.4});
+    document.querySelectorAll('section[id]').forEach(function(s){io.observe(s);});
+  }
+
+  // Promo video: the facade tap IS the start event (the old wiring bound
+  // YT.Player to a lazy iframe that did not exist yet - 0 video_start in
+  // 28 days). The iframe + API load only after the tap; the API is then
+  // only needed for video_complete.
+  var facade=document.getElementById('video-facade');
+  if(facade)facade.addEventListener('click',function(){
+    gtag('event','video_start',{video:'promo'});
+    var ifr=document.createElement('iframe');
+    ifr.id='promo-video';
+    ifr.src='https://www.youtube-nocookie.com/embed/seejFBA3VU8?enablejsapi=1&autoplay=1&rel=0';
+    ifr.title='Life Recorder — retroactive voice recorder for Android and iPhone (promo video)';
+    ifr.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    ifr.allowFullscreen=true;
+    facade.parentNode.replaceChild(ifr,facade);
+    window.onYouTubeIframeAPIReady=function(){
+      new YT.Player('promo-video',{events:{onStateChange:function(e){
+        if(e.data===YT.PlayerState.ENDED){
+          gtag('event','video_complete',{video:'promo'});
+        }
+      }}});
+    };
+    var yt=document.createElement('script');
+    yt.src="https://www.youtube.com/iframe_api";
+    document.head.appendChild(yt);
+  });
+})();
+</script>
+</body>
+</html>
