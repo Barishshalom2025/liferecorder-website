@@ -48,14 +48,15 @@
       "&sr="+screen.width+"x"+screen.height+
       "&dl="+encodeURIComponent(location.href)+
       "&dt="+encodeURIComponent(document.title)+
-      (document.referrer?"&dr="+encodeURIComponent(document.referrer):"")+
-      (fresh?"&_fv=1&_ss=1":"");
+      (document.referrer?"&dr="+encodeURIComponent(document.referrer):"");
     function hit(tail){
       var u=base+"&_p="+Math.floor(Math.random()*1e9)+tail;
       if(navigator.sendBeacon&&navigator.sendBeacon(u))return;
       queued=false; new Image().src=u;
     }
-    hit("&_s=1&en=page_view&_et=1");
+    // first_visit/session_start ride the FIRST hit only: on both, GA4 counted every visitor twice
+    // (2026-11-24: /funcallsget 48 users, 96 first_visit + 96 session_start; web newUsers > users).
+    hit("&_s=1&en=page_view&_et=1"+(fresh?"&_fv=1&_ss=1":"&_ss=1"));
     hit("&_s=2&en=install_click&ep.placement="+C+"&ep.invite="+(ref?"yes":"no")+"&ep.platform="+platform);
   }catch(e){}
 

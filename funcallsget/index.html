@@ -15,13 +15,22 @@
      sendBeacon is queued by the browser and survives the navigation. -->
 <script>
 (function(){
-  var C="funcallsget";  // the only line that differs between the redirect pages
+  var C="funcallsget";  // differs from /get here and in the utm pass-through into PLAY below
   // /funcallsget (Bar 2026-11-16): the link Funcalls sends its users to download Life Recorder;
   // counted as install_click{placement=funcallsget}, Play referrer utm_campaign=funcallsget.
   // The App Store listing is not public until Apple approves 2.0.0. Flip to true on the
   // day it goes live and iPhone visitors will be sent straight to the store instead.
   var IOS_LIVE=true;
-  var PLAY="https://play.google.com/store/apps/details?id=com.record.liferecorder&referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3D"+C;
+  // The link's own utm rides on into the Play install referrer (2026-11-24): before, every
+  // Funcalls placement arrived as liferecorderapp.com/web/funcallsget, so first_open could not
+  // tell Funcalls from the site or Settings from a popup. Now ?utm_source=funcalls&utm_medium=app
+  // &utm_campaign=settings -> first_open funcalls / app / funcallsget_settings. Bare link = as before.
+  var q=new URLSearchParams(location.search);
+  function utm(k,dflt){var v=q.get(k)||"";return /^[A-Za-z0-9._-]{1,40}$/.test(v)?v:dflt;}
+  var camp=utm("utm_campaign","");
+  var PLAY="https://play.google.com/store/apps/details?id=com.record.liferecorder&referrer=utm_source%3D"+
+    utm("utm_source","liferecorderapp.com")+"%26utm_medium%3D"+utm("utm_medium","web")+
+    "%26utm_campaign%3D"+C+(camp?"_"+camp:"");
   var APPSTORE="https://apps.apple.com/app/id6812500586";
   // The sharer's invite code. Android carries it into the Play install referrer by itself;
   // iOS has no deferred deep link, so the friend has to read it and type it in the app
@@ -50,14 +59,15 @@
       "&sr="+screen.width+"x"+screen.height+
       "&dl="+encodeURIComponent(location.href)+
       "&dt="+encodeURIComponent(document.title)+
-      (document.referrer?"&dr="+encodeURIComponent(document.referrer):"")+
-      (fresh?"&_fv=1&_ss=1":"");
+      (document.referrer?"&dr="+encodeURIComponent(document.referrer):"");
     function hit(tail){
       var u=base+"&_p="+Math.floor(Math.random()*1e9)+tail;
       if(navigator.sendBeacon&&navigator.sendBeacon(u))return;
       queued=false; new Image().src=u;
     }
-    hit("&_s=1&en=page_view&_et=1");
+    // first_visit/session_start ride the FIRST hit only: on both, GA4 counted every visitor twice
+    // (2026-11-24: /funcallsget 48 users, 96 first_visit + 96 session_start; web newUsers > users).
+    hit("&_s=1&en=page_view&_et=1"+(fresh?"&_fv=1&_ss=1":"&_ss=1"));
     hit("&_s=2&en=install_click&ep.placement="+C+"&ep.invite="+(ref?"yes":"no")+"&ep.platform="+platform);
   }catch(e){}
 
