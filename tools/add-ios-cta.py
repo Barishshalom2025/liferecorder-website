@@ -11,21 +11,28 @@ Run once. It is idempotent: a page that already carries the iOS markup is skippe
 import pathlib, re, sys
 
 APP_STORE = 'https://apps.apple.com/app/id6812500586'
+# App Store Connect campaign link: pt = provider token, ct = the Play link's utm_campaign.
+CAMPAIGN = APP_STORE + '?pt=129464139&amp;ct={ct}&amp;mt=8'
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 CSS = ('[data-ios="0"] .ios-only{display:none!important}'
        '.badge-ios img{height:48px;display:block}'
        '.badge-ios{display:inline-flex;align-items:center;min-height:64px}')
 
 
-def badge_html(placement, depth):
+def campaign(anchor):
+    m = re.search(r'utm_campaign%3D([A-Za-z0-9_]+)', anchor)
+    return m.group(1) if m else 'web'
+
+
+def badge_html(placement, depth, ct='web'):
     src = ('../' * depth) + 'assets/download-on-the-app-store.svg' if depth else 'assets/download-on-the-app-store.svg'
-    return (f'\n        <a class="badge badge-ios ios-only" href="{APP_STORE}" '
+    return (f'\n        <a class="badge badge-ios ios-only" href="{CAMPAIGN.format(ct=ct)}" '
             f'onclick="installClick(event,\'{placement}_ios\')">'
             f'<img alt="Download on the App Store" src="{src}" width="143" height="48"></a>')
 
 
-def button_html(placement):
-    return (f'\n    <a class="btn-install ios-only" href="{APP_STORE}" '
+def button_html(placement, ct='web'):
+    return (f'\n    <a class="btn-install ios-only" href="{CAMPAIGN.format(ct=ct)}" '
             f'onclick="installClick(event,\'{placement}_ios\')">Install free on the App&nbsp;Store</a>')
 
 
@@ -45,12 +52,12 @@ def main():
         # 3. a badge after each Play badge, and a button after each Play button
         def after_badge(m):
             placement = re.search(r"installClick\(event,'([^']+)'\)", m.group(0))
-            return m.group(0) + badge_html(placement.group(1) if placement else 'cta', depth)
+            return m.group(0) + badge_html(placement.group(1) if placement else 'cta', depth, campaign(m.group(0)))
         s = re.sub(r'<a class="badge" href="https://play\.google\.com[^>]*>.*?</a>', after_badge, s, flags=re.S)
 
         def after_button(m):
             placement = re.search(r"installClick\(event,'([^']+)'\)", m.group(0))
-            return m.group(0) + button_html(placement.group(1) if placement else 'cta')
+            return m.group(0) + button_html(placement.group(1) if placement else 'cta', campaign(m.group(0)))
         s = re.sub(r'<a class="btn-install" href="https://play\.google\.com[^>]*>[^<]*</a>', after_button, s)
         page.write_text(s, encoding='utf-8')
         touched += 1

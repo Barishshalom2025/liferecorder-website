@@ -201,6 +201,7 @@ def build_home(lang, en, src_en, badges):
     s = re.sub(r"installClick\(event,'([a-z_]+)'\)", lambda m: f"installClick(event,'{tag(m.group(1))}')", s)
     s = s.replace("m[1].slice(-4)!==\"_ios\"", "m[1].indexOf(\"_ios\")<0")
     s = re.sub(r'utm_campaign%3D([a-z_]+)', lambda m: f'utm_campaign%3D{m.group(1)}_{lang}', s)
+    s = re.sub(r'&amp;ct=([a-z_]+)&amp;mt=8', lambda m: f'&amp;ct={m.group(1)}_{lang}&amp;mt=8', s)  # App Store campaign = Play campaign
     s = re.sub(r'font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif',
                'font-family:' + FONT_STACK, s, count=1)
     if rtl:

@@ -253,7 +253,8 @@ footer .links{margin-left:auto;display:flex;flex-wrap:wrap;gap:10px 20px}@media 
  if(d.getAttribute("data-ios")!=="1"||d.getAttribute("data-plat")!=="ios")return;
  document.addEventListener("DOMContentLoaded",function(){
   document.querySelectorAll("header a.install,header a.btn-install,.installbar a.btn-install").forEach(function(a){
-   a.href="https://apps.apple.com/app/id6812500586";
+   var c=(a.href.match(/(?:utm_campaign%3D|[?&]ct=)([A-Za-z0-9_]+)/)||[])[1]||"web";
+   a.href="https://apps.apple.com/app/id6812500586?pt=129464139&ct="+c+"&mt=8";  // App Store Connect campaign = the Play campaign
    var m=(a.getAttribute("onclick")||"").match(/installClick\(event,'([^']+)'\)/);
    if(m&&m[1].indexOf("_ios")<0)a.setAttribute("onclick","installClick(event,'"+m[1]+"_ios')");
   });});})();
@@ -285,9 +286,9 @@ footer .links{margin-left:auto;display:flex;flex-wrap:wrap;gap:10px 20px}@media 
         <a class="badge" href="https://play.google.com/store/apps/details?id=com.record.liferecorder&amp;referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dhero_ru" onclick="installClick(event,'hero_ru')">
           <img alt="Доступно в Google Play" src="https://play.google.com/intl/en_us/badges/static/images/badges/ru_badge_web_generic.png" width="180" height="64">
         </a>
-        <a class="badge badge-ios ios-only" href="https://apps.apple.com/app/id6812500586" onclick="installClick(event,'hero_ru_ios')"><img alt="Загрузите в App Store" src="/assets/download-on-the-app-store.svg" width="143" height="48"></a>
+        <a class="badge badge-ios ios-only" href="https://apps.apple.com/app/id6812500586?pt=129464139&amp;ct=hero_ru&amp;mt=8" onclick="installClick(event,'hero_ru_ios')"><img alt="Загрузите в App Store" src="/assets/download-on-the-app-store.svg" width="143" height="48"></a>
         <a class="btn-install" href="https://play.google.com/store/apps/details?id=com.record.liferecorder&amp;referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dhero_ru" onclick="installClick(event,'hero_ru')">Установить бесплатно из Google Play</a>
-    <a class="btn-install ios-only" href="https://apps.apple.com/app/id6812500586" onclick="installClick(event,'hero_ru_ios')">Установить бесплатно из App&nbsp;Store</a>
+    <a class="btn-install ios-only" href="https://apps.apple.com/app/id6812500586?pt=129464139&amp;ct=hero_ru&amp;mt=8" onclick="installClick(event,'hero_ru_ios')">Установить бесплатно из App&nbsp;Store</a>
       </div>
       <p class="trust">Бесплатная загрузка · Без аккаунта · <b>Записи никогда не загружаются к нам</b> · Записывает и расшифровывает офлайн</p>
     </div>
@@ -337,7 +338,7 @@ footer .links{margin-left:auto;display:flex;flex-wrap:wrap;gap:10px 20px}@media 
     </div>
     <div class="cta-row" style="justify-content:center;margin-top:26px">
       <a class="btn-install" href="https://play.google.com/store/apps/details?id=com.record.liferecorder&amp;referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dvideo_ru" onclick="installClick(event,'video_ru')">Установить бесплатно из Google Play</a>
-    <a class="btn-install ios-only" href="https://apps.apple.com/app/id6812500586" onclick="installClick(event,'video_ru_ios')">Установить бесплатно из App&nbsp;Store</a>
+    <a class="btn-install ios-only" href="https://apps.apple.com/app/id6812500586?pt=129464139&amp;ct=video_ru&amp;mt=8" onclick="installClick(event,'video_ru_ios')">Установить бесплатно из App&nbsp;Store</a>
     </div>
   </div>
 </section>
@@ -471,9 +472,9 @@ footer .links{margin-left:auto;display:flex;flex-wrap:wrap;gap:10px 20px}@media 
       <a class="badge" href="https://play.google.com/store/apps/details?id=com.record.liferecorder&amp;referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dfooter_ru" onclick="installClick(event,'footer_ru')">
         <img alt="Доступно в Google Play" src="https://play.google.com/intl/en_us/badges/static/images/badges/ru_badge_web_generic.png" width="180" height="64">
       </a>
-        <a class="badge badge-ios ios-only" href="https://apps.apple.com/app/id6812500586" onclick="installClick(event,'footer_ru_ios')"><img alt="Загрузите в App Store" src="/assets/download-on-the-app-store.svg" width="143" height="48"></a>
+        <a class="badge badge-ios ios-only" href="https://apps.apple.com/app/id6812500586?pt=129464139&amp;ct=footer_ru&amp;mt=8" onclick="installClick(event,'footer_ru_ios')"><img alt="Загрузите в App Store" src="/assets/download-on-the-app-store.svg" width="143" height="48"></a>
       <a class="btn-install" href="https://play.google.com/store/apps/details?id=com.record.liferecorder&amp;referrer=utm_source%3Dliferecorderapp.com%26utm_medium%3Dweb%26utm_campaign%3Dfooter_ru" onclick="installClick(event,'footer_ru')">Установить бесплатно из Google Play</a>
-    <a class="btn-install ios-only" href="https://apps.apple.com/app/id6812500586" onclick="installClick(event,'footer_ru_ios')">Установить бесплатно из App&nbsp;Store</a>
+    <a class="btn-install ios-only" href="https://apps.apple.com/app/id6812500586?pt=129464139&amp;ct=footer_ru&amp;mt=8" onclick="installClick(event,'footer_ru_ios')">Установить бесплатно из App&nbsp;Store</a>
     </div>
     <p class="trust">Бесплатная загрузка · Без аккаунта · <b>Записи никогда не загружаются к нам</b> · Записывает и расшифровывает офлайн</p>
   </div>

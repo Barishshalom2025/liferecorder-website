@@ -31,7 +31,8 @@
   var PLAY="https://play.google.com/store/apps/details?id=com.record.liferecorder&referrer=utm_source%3D"+
     utm("utm_source","liferecorderapp.com")+"%26utm_medium%3D"+utm("utm_medium","web")+
     "%26utm_campaign%3D"+C+(camp?"_"+camp:"");
-  var APPSTORE="https://apps.apple.com/app/id6812500586";
+  // App Store Connect campaign (pt = provider): funcalls_<utm_campaign>, Apple caps ct at 40.
+  var APPSTORE="https://apps.apple.com/app/id6812500586?pt=129464139&ct="+(camp?("funcalls_"+camp).slice(0,40):C)+"&mt=8";
   // The sharer's invite code. Android carries it into the Play install referrer by itself;
   // iOS has no deferred deep link, so the friend has to read it and type it in the app
   // (PlatformFeature.CodeReferral / the "Have an invite code?" field).
